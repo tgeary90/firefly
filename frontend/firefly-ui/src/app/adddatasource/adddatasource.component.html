@@ -1,0 +1,22 @@
+<h1>My Data Sources</h1>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cloud Provider</th>
+        <th>Bucket URL</th>
+        <th>Last ETL run date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let datasource of datasources">
+        <td>{{ datasource.id }}</td>
+        <td>{{ datasource.cloudProvider }}</td>
+        <td>{{ datasource.bucketUrl }}</td>
+        <td>{{ datasource.lastEtl | date | uppercase }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

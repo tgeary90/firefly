@@ -1,0 +1,4 @@
+@startuml
+(fetch-transactions)
+(run-etl)
+@enduml

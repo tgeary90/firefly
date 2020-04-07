@@ -1,0 +1,13 @@
+@startuml
+package "tom.ff.fetch" {
+  [app_agent]
+}
+package "tom.ff.gcp" {
+  [gcp_connector]
+}
+package "tom.ff.etl" {
+  [app_etl]
+}
+
+[gcp_connector] --> [app_agent]
+@enduml

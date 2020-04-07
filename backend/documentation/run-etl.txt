@@ -1,0 +1,10 @@
+@startuml
+start
+:dequeue_txns;
+:txns_dequeued|
+:validate_txns;
+:txns_validated|
+:load_txns;
+:txns_loaded|
+stop
+@enduml

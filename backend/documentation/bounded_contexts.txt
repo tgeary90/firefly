@@ -1,0 +1,5 @@
+@startuml
+note "Conformist" as N1
+(fetch_txns) .. N1
+N1 .. (run_etl)
+@enduml

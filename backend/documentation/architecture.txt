@@ -1,0 +1,15 @@
+@startuml
+cloud gcp
+component app_agent
+database buckets
+queue rmq
+component app_etl
+component ff_ui
+database transactions
+gcp <-- app_agent : pull
+app_agent --> buckets
+app_agent --> rmq : produce
+app_etl --> rmq : consume
+app_etl --> transactions : index
+ff_ui --> app_agent : configures
+@enduml

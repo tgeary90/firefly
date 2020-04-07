@@ -1,0 +1,11 @@
+@startuml
+start
+:txn_arrives|
+:fetch_txns;
+:txns_recd|
+:serialize_txns;
+:txns_serialized|
+:enqueue_txns;
+:txns_queued|
+stop
+@enduml
