@@ -37,8 +37,17 @@ run etl:
 ![flows2](./documentation/run_etl.png "run-etl")
 
 ## Implementation Notes
-1. model is in model.scala
-2. layers are io and domain
+* layers are io, service and domain
+* io is infrastructure, REST api and serializers
+* service is wired in beans that invoke workflows
+* domain is types (domain model) and workflow implementations
+
+### REST API
+
+|EndPoint|POST|DELETE|
+|--------|----|------|
+|/buckets|create new||
+|/buckets/{id}||delete bucket|
 
 ## Run
 ./gradle bootRun
