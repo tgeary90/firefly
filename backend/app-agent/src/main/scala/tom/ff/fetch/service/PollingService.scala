@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component
 import tom.ff.fetch.domain.Types.{CloudAgent, Transaction}
 
 @Component
-class PollingService() {
+class PollingService(agent: CloudAgent) {
 
-  def start(agent: CloudAgent): Unit = {
+  def start(): Unit = {
 
   }
 
