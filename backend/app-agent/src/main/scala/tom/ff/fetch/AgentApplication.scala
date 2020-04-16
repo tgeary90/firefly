@@ -1,17 +1,12 @@
 package tom.ff.fetch
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext
-import org.springframework.context.ApplicationContext
-import org.springframework.context.annotation.{Bean, ComponentScan, Configuration}
-import org.springframework.web.context.WebApplicationContext
-import tom.ff.fetch.domain.Types.{CloudAgent, CloudService}
-import tom.ff.fetch.service.PollingService
+import org.springframework.context.annotation.{Bean, ComponentScan}
+import org.springframework.scheduling.annotation.EnableScheduling
+import tom.ff.fetch.domain.Types.CloudAgent
+import tom.ff.fetch.service.RegistrationService
 import tom.ff.gcp.agent.GCPAgent
-
-import scala.beans.BeanProperty
 
 @SpringBootApplication
 @ComponentScan(
@@ -20,11 +15,20 @@ import scala.beans.BeanProperty
       "tom.ff.gcp.agent"
     )
 )
+@EnableScheduling
 class AgentApp() {
+
   @Bean
-  def agent(gcpAgent: GCPAgent): CloudAgent = new CloudAgent {
-    override def fetchTransactions(bucket: String): List[Any] = gcpAgent.fetchTransactions(bucket)
+  def gcpAgent(gcpAgent: GCPAgent, registrationService: RegistrationService): CloudAgent = {
+    val connector = new CloudAgent {
+      override def fetchTransactions(bucket: String): List[Any] = gcpAgent.fetchTransactions(bucket)
+    }
+    registrationService.addConnector(connector)
+    connector
   }
+
+  // Add more connectors as necessary
+
 }
 
 object AgentApplication {

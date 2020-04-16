@@ -12,12 +12,12 @@ class FetchAPI {
   var bucketService: BucketService = _
 
   @PostMapping
-  def createBucket(bucketUrl: String): Boolean = {
+  def createBucket(bucketUrl: String): Unit = {
     bucketService.addBucket(bucketUrl)
   }
 
   @DeleteMapping(Array("/buckets/{id}"))
-  def deleteBucket(@PathParam("id") id: String): Boolean = {
-    bucketService.deleteBucket(id)
+  def deleteBucket(@PathParam("id") id: String): Unit = {
+    bucketService.deleteBucket(Integer.parseInt(id))
   }
 }

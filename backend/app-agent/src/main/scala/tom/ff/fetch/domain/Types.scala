@@ -55,7 +55,20 @@ object Types {
 
   //////// Entities ///////////
 
-  case class Bucket(url: String)
+  class Bucket(val id: Int, val url: String) {
+    def canEqual(that: Any): Boolean = that.isInstanceOf[Bucket]
+
+    override def equals(that: Any): Boolean = {
+      that match {
+        case b: Bucket => {
+          (this eq b) || (b.canEqual(this)) && (hashCode == b.hashCode()) && (id == b.id) && (url == b.url)
+        }
+        case _ => false
+      }
+    }
+
+    override def hashCode(): Int = 31 * ( id.## ) + id.##
+  }
 
   case class Job[T](id: Int)
 

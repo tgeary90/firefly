@@ -9,5 +9,5 @@ package "tom.ff.etl" {
   [app_etl]
 }
 
-[gcp_connector] --> [app_agent]
+[gcp_connector] <-- [app_agent]
 @enduml
