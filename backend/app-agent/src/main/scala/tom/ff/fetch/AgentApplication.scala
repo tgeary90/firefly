@@ -1,12 +1,13 @@
 package tom.ff.fetch
 
+import org.omg.IOP.TransactionService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.{Bean, ComponentScan}
 import org.springframework.scheduling.annotation.EnableScheduling
-import tom.ff.fetch.domain.Types.CloudAgent
+import tom.ff.fetch.domain.Types.{Connector, Transaction}
 import tom.ff.fetch.service.RegistrationService
-import tom.ff.gcp.agent.GCPAgent
+import tom.ff.gcp.agent.GCPConnector
 
 @SpringBootApplication
 @ComponentScan(
@@ -19,9 +20,9 @@ import tom.ff.gcp.agent.GCPAgent
 class AgentApp() {
 
   @Bean
-  def gcpAgent(gcpAgent: GCPAgent, registrationService: RegistrationService): CloudAgent = {
-    val connector = new CloudAgent {
-      override def fetchTransactions(bucket: String): List[Any] = gcpAgent.fetchTransactions(bucket)
+  def gcpAgent(gcpAgent: GCPConnector, registrationService: RegistrationService): Connector = {
+    val connector = new Connector {
+      override def getObjects(bucket: String): Seq[Any] = gcpAgent.getObjects(bucket)
     }
     registrationService.addConnector(connector)
     connector

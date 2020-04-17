@@ -11,23 +11,24 @@ object Types {
 
   class JobError(msg: String) extends RuntimeException
 
-  type Result[A, B] = Either[A, B]
   type FailedTransaction = String
   type Ack = String
 
-  type fetch = CloudAgent => Result[FetchError, List[Transaction]]
-  type createJob = List[Transaction] => Result[JobError, Job[Transaction]]
-  type enqueue = Job[Transaction] => Result[JobError, Ack]
+  type Fetch = (Connector, Bucket) => Result[FetchError, List[Transaction]]
+  type CreateJob = List[Transaction] => Result[JobError, List[Job[Transaction]]]
+  type Enqueue = (QueueClient, List[Job[Transaction]]) => Result[JobError, Ack]
 
-  /////// value objects ///////
+  /////// Value Objects ///////
 
+  case class Result[A, B](result: Either[A, B])
 
-  trait CloudAgent {
-    def fetchTransactions(bucket: String): List[Any]
+  trait Connector {
+    def getObjects(bucket: String): Seq[Any]
   }
 
-  trait CloudService {
-    def start(cloudAgent: CloudAgent): Unit
+  trait QueueClient {
+    def produce(bytes: Array[Byte]): Unit
+    def consume(): Array[Byte]
   }
 
   case class AccountNumber(value: Long)
@@ -53,6 +54,8 @@ object Types {
                                    debitCredit: DebitCredit
                                  ) extends Transaction
 
+  case class Job[T](transaction: Array[Byte])
+
   //////// Entities ///////////
 
   class Bucket(val id: Int, val url: String) {
@@ -69,8 +72,6 @@ object Types {
 
     override def hashCode(): Int = 31 * ( id.## ) + id.##
   }
-
-  case class Job[T](id: Int)
 
   abstract class Originator {
     def accNo: AccountNumber

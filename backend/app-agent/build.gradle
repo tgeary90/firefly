@@ -17,6 +17,7 @@ bootJar {
 
 dependencies {
 
+	// conncector GCP implementation
 	compile project(':gcp-connector')
 
 	// Use Scala 2.11 in our library project
@@ -25,6 +26,9 @@ dependencies {
 
 	// access google buckets
 	compile 'com.google.cloud:google-cloud-storage:1.101.0'
+
+	// Rabbit MQ for queueing
+	compile 'com.rabbitmq:amqp-client:5.7.1'
 
 	// Use Scalatest for testing our library
 	testCompile 'junit:junit:4.12'
