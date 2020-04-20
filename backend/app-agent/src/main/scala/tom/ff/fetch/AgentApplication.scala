@@ -22,7 +22,7 @@ class AgentApp() {
   @Bean
   def gcpAgent(gcpAgent: GCPConnector, registrationService: RegistrationService): Connector = {
     val connector = new Connector {
-      override def getObjects(bucket: String): Seq[Any] = gcpAgent.getObjects(bucket)
+      override def getObjects(): Seq[Any] = gcpAgent.getObjects()
     }
     registrationService.addConnector(connector)
     connector

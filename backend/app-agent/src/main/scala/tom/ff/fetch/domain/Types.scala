@@ -14,7 +14,7 @@ object Types {
   type FailedTransaction = String
   type Ack = String
 
-  type Fetch = (Connector, Bucket) => Result[FetchError, List[Transaction]]
+  type Fetch = Connector => Seq[Result[FetchError,Transaction]]
   type CreateJob = List[Transaction] => Result[JobError, List[Job[Transaction]]]
   type Enqueue = (QueueClient, List[Job[Transaction]]) => Result[JobError, Ack]
 
@@ -23,7 +23,7 @@ object Types {
   case class Result[A, B](result: Either[A, B])
 
   trait Connector {
-    def getObjects(bucket: String): Seq[Any]
+    def getObjects(): Seq[Any]
   }
 
   trait QueueClient {

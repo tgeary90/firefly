@@ -1,25 +1,41 @@
 package tom.ff.fetch.domain
 
+import java.nio.charset.StandardCharsets
+
+import org.slf4j.{Logger, LoggerFactory}
 import tom.ff.fetch.domain.Types._
 import tom.ff.fetch.io.BinarySerializers._
 
+import scala.collection.mutable.ArrayBuffer
+
 object Workflows {
 
-  val fetch: Fetch = (connector: Connector, bucket: Bucket) => {
-    val objects: Seq[Any] = connector.getObjects(bucket.url)
+  val log: Logger         = LoggerFactory.getLogger("FetchWF")
 
-    val txns: List[Transaction] = objects
-      .filter(o => o match {
-        case t: RawTransaction  => true
-        case _                  => false
-      })
-      .map(o => {
-        val txn = o.asInstanceOf[RawTransaction]
-        RawTransaction(txn.orig, txn.bene, txn.amount, txn.debitCredit)
+  val fetch: Fetch = (connector: Connector) => {
+    val objects: Seq[Any] = connector.getObjects
+    log.info(s"Fetch received ${objects.size} raw objects")
+
+    val results = new ArrayBuffer[Result[FetchError, Transaction]]
+
+    objects
+      .collect {
+        case bytes: Array[Byte] => {
+          try {
+            val txn = DeserializeOps.fromBinary[Transaction](bytes)
+            results += Result(Right(txn))
+
+          }
+          catch {
+            case e: RuntimeException => {
+              results += Result(Left(new FetchError(e.getLocalizedMessage, List(new String(bytes, StandardCharsets.UTF_8)))))
+            }
+          }
         }
-      ).toList
+      }
 
-    Result(Right(txns))
+    log.info(s"Fetch produced ${results.size} transactions")
+    results.toSeq
   }
 
   val createJob: CreateJob = (txns: List[Transaction]) => {

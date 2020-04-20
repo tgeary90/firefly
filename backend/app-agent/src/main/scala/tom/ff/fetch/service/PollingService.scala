@@ -18,6 +18,9 @@ class PollingService(
                       @Value("${polling.interval}") pollingInterval: String
                     ) {
 
+  type ResultsWrapper = Seq[Seq[Result[FetchError, Transaction]]]
+  type JobsWrapper = Seq[Result[JobError, List[Job[Transaction]]]]
+
   val dateFormat    = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss")
   val log: Logger   = LoggerFactory.getLogger("PollingService")
 
@@ -28,23 +31,22 @@ class PollingService(
     log.debug("Getting transactions at: " + dateFormat.format(new Date))
 
     val connectors: Seq[Connector]  = registrationService.getConnectors
-    val buckets: Seq[Bucket]        = bucketService.getBuckets
 
-    val results: Seq[Result[FetchError, List[Transaction]]] = for {
+    val results: ResultsWrapper = for {
       conn <- connectors
-      bucket <- buckets
-    } yield Workflows.fetch(conn, bucket)
+    } yield Workflows.fetch(conn)
 
-    val batch: Seq[Result[JobError, List[Job[Transaction]]]] = results.map {r =>
-      Workflows.createJob(r.result match {
-        case Right(txns) => txns
-        case Left(e) => throw new JobError(e.getMessage)
-      })
-    }
+    val batch: JobsWrapper = results.flatMap {
+      resultsPerConnector =>
+        val txns = resultsPerConnector.flatMap { res =>
+          res.result match {
+            case Right(txn) => List(txn)
+          }
+        }
+        Workflows.createJob(txns.toList)
+      }
 
-    batch.foreach { r =>
-      Workflows.enqueue(queueClient, r.result.right.get)
-    }
+    batch.foreach { txn => Workflows.enqueue(queueClient, txn) }
   }
 
   def stop(): Unit = {
