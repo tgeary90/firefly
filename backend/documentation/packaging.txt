@@ -1,4 +1,5 @@
 @startuml
+
 package "tom.ff.fetch" {
   [app_agent]
 }
@@ -8,6 +9,15 @@ package "tom.ff.gcp" {
 package "tom.ff.etl" {
   [app_etl]
 }
+package "tom.ff.fetch.domain" {
+  [fetch_domain]
+}
+package "tom.ff.etl.domain" {
+  [etl_domain]
+}
 
 [gcp_connector] <-- [app_agent]
+[etl_domain] <-- [app_etl]
+[fetch_domain] <-- [app_agent]
+
 @enduml

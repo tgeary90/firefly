@@ -44,13 +44,14 @@ run etl:
 
 ### REST API
 
-|EndPoint|POST|DELETE|
-|--------|----|------|
-|/buckets|create new||
-|/buckets/{id}||delete bucket|
+|EndPoint|POST|DELETE|GET|
+|--------|----|------|---|
+|/buckets|    |      |get all the bucket contents for that connector|
+|/connectors|create a new connector|||
+
 
 ## Run
-./gradle bootRun
+./gradlew bootRun
 
 ## Test
 ./gradlew check
@@ -61,3 +62,6 @@ run etl:
 ## Develop
 git clone https://tgeary90@bitbucket.org/tgeary90/firefly.git
 
+## Lessons learned
+
+1. dont try and run unit tests from a spring boot project in scala. nightmare.
