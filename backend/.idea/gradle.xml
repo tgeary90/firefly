@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app-agent" />
             <option value="$PROJECT_DIR$/app-etl" />
+            <option value="$PROJECT_DIR$/etl-domain" />
+            <option value="$PROJECT_DIR$/fetch-domain" />
             <option value="$PROJECT_DIR$/gcp-connector" />
           </set>
         </option>

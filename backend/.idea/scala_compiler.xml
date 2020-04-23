@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="Gradle 1" modules="firefly.app-agent.main,firefly.app-agent.test,firefly.app-etl.main,firefly.app-etl.test,firefly.gcp-connector.main,firefly.gcp-connector.test">
+    <profile name="Gradle 1" modules="firefly.app-agent.main,firefly.app-agent.test,firefly.app-etl.main,firefly.app-etl.test,firefly.etl-domain.main,firefly.etl-domain.test,firefly.fetch-domain.main,firefly.fetch-domain.test,firefly.gcp-connector.main,firefly.gcp-connector.test">
       <option name="deprecationWarnings" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <parameters>

@@ -28,8 +28,15 @@ subprojects {
 	    	maven { url "https://plugins.gradle.org/m2/" }
 	}
 
-  dependencies {
-    testCompile 'org.scalatest:scalatest_2.11:3.1.0'
-    testCompile 'org.scalamock:scalamock_2.11:4.4.0'
-  }
+	dependencies {
+		// Use Scala 2.11 in our library project
+		compile 'org.scala-lang:scala-library:2.11.12'
+
+		// Use Scalatest for testing our library
+		testCompile 'junit:junit:4.12'
+		testCompile 'org.scalatest:scalatest_2.11:3.0.4'
+
+		// Need scala-xml at test runtime
+		testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.6'
+	}
 }

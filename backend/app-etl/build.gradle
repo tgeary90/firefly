@@ -17,6 +17,10 @@ bootJar {
 }
 
 dependencies {
+
+	// etl domain
+	compile project(':etl-domain')
+
 	// Use Scala 2.11 in our library project
 	compile 'org.scala-lang:scala-library:2.11.12'
 	compile "org.springframework.boot:spring-boot-starter-web"
@@ -26,7 +30,4 @@ dependencies {
 
 	// Use Scalatest for testing our library
 	testCompile "org.springframework.boot:spring-boot-starter-test"
-
-	// Need scala-xml at test runtime
-	testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.6'
 }

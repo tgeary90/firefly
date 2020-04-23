@@ -19,4 +19,6 @@ rootProject.name = 'firefly'
 include 'gcp-connector'
 include 'app-etl'
 include 'app-agent'
+include 'fetch-domain'
+include 'etl-domain'
 

@@ -1,4 +1,4 @@
-package tom.ff.fetch.io
+package tom.ff.fetch.domain
 
 import java.io.{ByteArrayInputStream, DataInputStream}
 import java.nio.charset.StandardCharsets
@@ -93,34 +93,6 @@ object BinarySerializers {
         }
     }
 
-    implicit object JobSerializer extends Serialize[Job[Transaction]] {
-      override def toBinary(value: Job[Transaction]): Array[Byte] = {
-          val sizeBytes = value.size.toString.getBytes(StandardCharsets.UTF_8)
-          val transactionsBytes: Seq[Array[Byte]] = value.payload.map(txn => txn.toBinary)
-          val finalBytes = new ArrayBuffer[Array[Byte]]()
-
-          finalBytes += (sizeBytes)
-
-          transactionsBytes.foreach(tb => finalBytes += (tb))
-          finalBytes.flatten.toArray[Byte]
-      }
-
-      override def fromBinary(bytes: Array[Byte]): Job[Transaction] = {
-        val dis: DataInputStream = getDataStreamFor(bytes)
-        val size = dis.readInt()
-        val txns = new ArrayBuffer[Transaction]()
-
-        (1 to size) foreach {
-          txns += (DeserializeOps.fromBinary[Transaction](bytes))
-        }
-
-        Job[Transaction](
-          size,
-          txns.toSeq
-        )
-      }
-    }
-
     implicit object TransactionSerializer extends Serialize[Transaction] {
         override def toBinary(value: Transaction): Array[Byte] = {
             value match {
@@ -144,6 +116,34 @@ object BinarySerializers {
             )
         }
     }
+
+  implicit object JobSerializer extends Serialize[Job[Transaction]] {
+    override def toBinary(value: Job[Transaction]): Array[Byte] = {
+      val sizeBytes = value.size.toString.getBytes(StandardCharsets.UTF_8)
+      val transactionsBytes: Seq[Array[Byte]] = value.payload.map(txn => txn.toBinary)
+      val finalBytes = new ArrayBuffer[Array[Byte]]()
+
+      finalBytes += (sizeBytes)
+
+      transactionsBytes.foreach(tb => finalBytes += (tb))
+      finalBytes.flatten.toArray[Byte]
+    }
+
+    override def fromBinary(bytes: Array[Byte]): Job[Transaction] = {
+      val dis: DataInputStream = getDataStreamFor(bytes)
+      val size = dis.readInt()
+      val txns = new ArrayBuffer[Transaction]()
+
+      (1 to size) foreach {
+        txns += (DeserializeOps.fromBinary[Transaction](bytes))
+      }
+
+      Job[Transaction](
+        size,
+        txns.toSeq
+      )
+    }
+  }
 
     // 3. interface (enrichment and object)
 
