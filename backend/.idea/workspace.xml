@@ -4,15 +4,13 @@
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/AgentApplication.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/AgentApplication.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Types.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Types.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/BinarySerializers.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/BinarySerializers.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gcp-connector/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/gcp-connector/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gcp-connector/src/main/scala/tom/ff/gcp/agent/GCPConnector.scala" beforeDir="false" afterPath="$PROJECT_DIR$/gcp-connector/src/main/scala/tom/ff/gcp/agent/GCPConnector.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_rmq.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start_rmq.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-etl/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-etl/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,40 +67,14 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="firefly" type="f1a62948:ProjectNode" />
-                <item name="gcp-connector" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="firefly" type="f1a62948:ProjectNode" />
-                <item name="gcp-connector" type="2d1252cf:ModuleNode" />
-                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="firefly" type="f1a62948:ProjectNode" />
-                <item name="gcp-connector" type="2d1252cf:ModuleNode" />
-                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
-                <item name="main" type="396b929e:GradleViewContributor$SourceSetNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="firefly" type="f1a62948:ProjectNode" />
-                <item name="gcp-connector" type="2d1252cf:ModuleNode" />
-                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
-                <item name="main" type="396b929e:GradleViewContributor$SourceSetNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="firefly" type="f1a62948:ProjectNode" />
-                <item name="gcp-connector" type="2d1252cf:ModuleNode" />
+                <item name="app-agent" type="2d1252cf:ModuleNode" />
                 <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
                 <item name="test" type="396b929e:GradleViewContributor$SourceSetNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="firefly" type="f1a62948:ProjectNode" />
-                <item name="gcp-connector" type="2d1252cf:ModuleNode" />
+                <item name="app-agent" type="2d1252cf:ModuleNode" />
                 <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
                 <item name="test" type="396b929e:GradleViewContributor$SourceSetNode" />
                 <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
@@ -117,8 +89,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Scala Class" />
         <option value="Scala Worksheet" />
+        <option value="Scala Class" />
       </list>
     </option>
   </component>
@@ -152,7 +124,7 @@
       <recent name="$PROJECT_DIR$/gcp-connector/src/main/scala/tom/ff/gcp" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.SampleTest">
     <configuration name="AgentApplication" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="tom.ff.fetch.AgentApplication" />
       <module name="firefly.app-agent.main" />
@@ -166,8 +138,92 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BinarySerializersSpec" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;tom.ff.fetch.io.BinarySerializersSpec&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app-agent:cleanTest" />
+            <option value=":app-agent:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="BinarySerializersTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;tom.ff.fetch.io.BinarySerializersTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app-agent:cleanTest" />
+            <option value=":app-agent:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="GCPConnectorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;tom.ff.gcp.agent.GCPConnectorTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":gcp-connector:cleanTest" />
+            <option value=":gcp-connector:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SampleTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;tom.ff.etl.io.SampleTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app-etl:cleanTest" />
+            <option value=":app-etl:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.SampleTest" />
+        <item itemvalue="Gradle.BinarySerializersTest" />
+        <item itemvalue="Gradle.BinarySerializersSpec" />
+        <item itemvalue="Gradle.GCPConnectorTest" />
         <item itemvalue="Application.AgentApplication" />
       </list>
     </recent_temporary>
@@ -205,18 +261,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="726" y="263" width="524" height="484" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1587401389280">
+    <state x="726" y="263" width="524" height="484" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1587575097197">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="726" y="263" width="524" height="484" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/67.27.1853.958@67.27.1853.958" timestamp="1587401389280" />
+    <state x="726" y="263" width="524" height="484" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/67.27.1853.958@67.27.1853.958" timestamp="1587575097197" />
+    <state x="826" y="363" width="324" height="284" key="#com.intellij.debugger.actions.ViewTextAction" timestamp="1587565629017">
+      <screen x="67" y="27" width="1853" height="958" />
+    </state>
+    <state x="826" y="363" width="324" height="284" key="#com.intellij.debugger.actions.ViewTextAction/67.27.1853.958@67.27.1853.958" timestamp="1587565629017" />
     <state x="669" y="310" width="639" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586416925788">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="669" y="310" width="639" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.958@67.27.1853.958" timestamp="1586416925788" />
-    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1586362566657">
+    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1587455676824">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser/67.27.1853.958@67.27.1853.958" timestamp="1586362566657" />
+    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser/67.27.1853.958@67.27.1853.958" timestamp="1587455676824" />
     <state x="701" y="174" width="575" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1586246447768">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -225,42 +285,50 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="834" y="397" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/67.27.1853.958@67.27.1853.958" timestamp="1586246678806" />
-    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587132116892">
+    <state x="541" y="263" width="894" height="484" key="#org.jetbrains.debugger.memory.view.InstancesWindow" timestamp="1587565594984">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1587132116892" />
-    <state width="1807" height="239" key="GridCell.Tab.0.bottom" timestamp="1587401752025">
+    <state x="541" y="263" width="894" height="484" key="#org.jetbrains.debugger.memory.view.InstancesWindow/67.27.1853.958@67.27.1853.958" timestamp="1587565594984" />
+    <state x="905" y="261" width="166" height="488" key="#xdebugger.XInspectDialog" timestamp="1587565644962">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587401752025" />
-    <state width="1807" height="239" key="GridCell.Tab.0.center" timestamp="1587401752023">
+    <state x="905" y="261" width="166" height="488" key="#xdebugger.XInspectDialog/67.27.1853.958@67.27.1853.958" timestamp="1587565644962" />
+    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587542160400">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587401752023" />
-    <state width="1807" height="239" key="GridCell.Tab.0.left" timestamp="1587401752022">
+    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1587542160400" />
+    <state width="1807" height="239" key="GridCell.Tab.0.bottom" timestamp="1587575354036">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587401752022" />
-    <state width="1807" height="239" key="GridCell.Tab.0.right" timestamp="1587401752024">
+    <state width="1807" height="239" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587575354036" />
+    <state width="1807" height="239" key="GridCell.Tab.0.center" timestamp="1587575354035">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587401752024" />
-    <state width="1807" height="296" key="GridCell.Tab.1.bottom" timestamp="1586944765729">
+    <state width="1807" height="239" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587575354035" />
+    <state width="1807" height="239" key="GridCell.Tab.0.left" timestamp="1587575354034">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1586944765729" />
-    <state width="1807" height="296" key="GridCell.Tab.1.center" timestamp="1586944765728">
+    <state width="1807" height="239" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587575354034" />
+    <state width="1807" height="239" key="GridCell.Tab.0.right" timestamp="1587575354035">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1586944765728" />
-    <state width="1807" height="296" key="GridCell.Tab.1.left" timestamp="1586944765727">
+    <state width="1807" height="239" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587575354035" />
+    <state width="1807" height="296" key="GridCell.Tab.1.bottom" timestamp="1587567175964">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1586944765727" />
-    <state width="1807" height="296" key="GridCell.Tab.1.right" timestamp="1586944765729">
+    <state width="1807" height="296" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587567175964" />
+    <state width="1807" height="296" key="GridCell.Tab.1.center" timestamp="1587567175964">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1586944765729" />
+    <state width="1807" height="296" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1587567175964" />
+    <state width="1807" height="296" key="GridCell.Tab.1.left" timestamp="1587567175963">
+      <screen x="67" y="27" width="1853" height="958" />
+    </state>
+    <state width="1807" height="296" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1587567175963" />
+    <state width="1807" height="296" key="GridCell.Tab.1.right" timestamp="1587567175964">
+      <screen x="67" y="27" width="1853" height="958" />
+    </state>
+    <state width="1807" height="296" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1587567175964" />
     <state x="476" y="82" width="1024" height="845" key="SettingsEditor" timestamp="1587135677340">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -269,5 +337,29 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="656" y="234" width="672" height="678" key="search.everywhere.popup/67.27.1853.958@67.27.1853.958" timestamp="1587398974442" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
+          <line>24</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/BinarySerializers.scala</url>
+          <line>125</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/BinarySerializers.scala</url>
+          <line>157</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/firefly$BinarySerializersTest.ic" NAME="BinarySerializersTest Coverage Results" MODIFIED="1587570379365" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

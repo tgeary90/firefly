@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 
 object Workflows {
 
-  val log: Logger         = LoggerFactory.getLogger("FetchWF")
+  val log: Logger = LoggerFactory.getLogger("Workflows")
 
   val fetch: Fetch = (connector: Connector) => {
     val objects: Seq[Any] = connector.getObjects
@@ -38,19 +38,16 @@ object Workflows {
     results.toSeq
   }
 
-  val createJob: CreateJob = (txns: List[Transaction]) => {
-    val jobs: List[Job[Transaction]] = txns.map {
-      t => Job.apply[Transaction](t.toBinary)
-    }
-
-    Result(Right(jobs))
+  val createJob: CreateJob = (txns: Seq[Transaction]) => {
+    val job = Job[Transaction](txns.size, txns)
+    log.info(s"Created job with ${txns.size} txns")
+    Result(Right(job))
   }
 
-  val enqueue: Enqueue = (c: QueueClient, jobs: List[Job[Transaction]]) => {
+  val enqueue: Enqueue = (c: QueueClient, job: Job[Transaction]) => {
     try {
-      jobs.map {
-        job => c.produce(job.transaction)
-      }
+      c.produce(job.toBinary)
+      log.info(s"Enqueued job with ${job.size} objects")
       Result(Right("Success"))
     }
     catch {

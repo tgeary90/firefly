@@ -1,10 +1,11 @@
 package tom.ff.fetch.io
 
-import java.awt.peer.MouseInfoPeer
 import java.io.{ByteArrayInputStream, DataInputStream}
 import java.nio.charset.StandardCharsets
 
 import tom.ff.fetch.domain.Types._
+
+import scala.collection.mutable.ArrayBuffer
 
 object BinarySerializers {
 
@@ -90,6 +91,34 @@ object BinarySerializers {
               DeserializeOps.fromBinary[AccountNumber](bytes)
             )
         }
+    }
+
+    implicit object JobSerializer extends Serialize[Job[Transaction]] {
+      override def toBinary(value: Job[Transaction]): Array[Byte] = {
+          val sizeBytes = value.size.toString.getBytes(StandardCharsets.UTF_8)
+          val transactionsBytes: Seq[Array[Byte]] = value.payload.map(txn => txn.toBinary)
+          val finalBytes = new ArrayBuffer[Array[Byte]]()
+
+          finalBytes += (sizeBytes)
+
+          transactionsBytes.foreach(tb => finalBytes += (tb))
+          finalBytes.flatten.toArray[Byte]
+      }
+
+      override def fromBinary(bytes: Array[Byte]): Job[Transaction] = {
+        val dis: DataInputStream = getDataStreamFor(bytes)
+        val size = dis.readInt()
+        val txns = new ArrayBuffer[Transaction]()
+
+        (1 to size) foreach {
+          txns += (DeserializeOps.fromBinary[Transaction](bytes))
+        }
+
+        Job[Transaction](
+          size,
+          txns.toSeq
+        )
+      }
     }
 
     implicit object TransactionSerializer extends Serialize[Transaction] {

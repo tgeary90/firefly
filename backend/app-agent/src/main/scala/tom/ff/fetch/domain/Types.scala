@@ -15,8 +15,8 @@ object Types {
   type Ack = String
 
   type Fetch = Connector => Seq[Result[FetchError,Transaction]]
-  type CreateJob = List[Transaction] => Result[JobError, List[Job[Transaction]]]
-  type Enqueue = (QueueClient, List[Job[Transaction]]) => Result[JobError, Ack]
+  type CreateJob = Seq[Transaction] => Result[JobError, Job[Transaction]]
+  type Enqueue = (QueueClient, Job[Transaction]) => Result[JobError, Ack]
 
   /////// Value Objects ///////
 
@@ -54,7 +54,7 @@ object Types {
                                    debitCredit: DebitCredit
                                  ) extends Transaction
 
-  case class Job[T](transaction: Array[Byte])
+  case class Job[T](size: Int, payload: Seq[T])
 
   //////// Entities ///////////
 

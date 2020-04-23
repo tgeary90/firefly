@@ -19,7 +19,7 @@ class PollingService(
                     ) {
 
   type ResultsWrapper = Seq[Seq[Result[FetchError, Transaction]]]
-  type JobsWrapper = Seq[Result[JobError, List[Job[Transaction]]]]
+  type JobsWrapper = Seq[Result[JobError, Job[Transaction]]]
 
   val dateFormat    = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss")
   val log: Logger   = LoggerFactory.getLogger("PollingService")
@@ -36,17 +36,17 @@ class PollingService(
       conn <- connectors
     } yield Workflows.fetch(conn)
 
-    val batch: JobsWrapper = results.flatMap {
+    val batch: JobsWrapper = results.map {
       resultsPerConnector =>
         val txns = resultsPerConnector.flatMap { res =>
-          res.result match {
-            case Right(txn) => List(txn)
-          }
-        }
-        Workflows.createJob(txns.toList)
+          List(res.result.right.toOption)
+        }.flatten.toList
+        val job = Workflows.createJob(txns)
+        job
       }
 
-    batch.foreach { txn => Workflows.enqueue(queueClient, txn) }
+
+    batch.foreach { result => Workflows.enqueue(queueClient, result.result.right.get) }
   }
 
   def stop(): Unit = {

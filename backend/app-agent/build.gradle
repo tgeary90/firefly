@@ -15,6 +15,10 @@ bootJar {
 	version = '0.0.1'
 }
 
+test {
+	useJUnitPlatform()
+}
+
 dependencies {
 
 	// conncector GCP implementation
@@ -28,7 +32,6 @@ dependencies {
 	compile 'com.rabbitmq:amqp-client:5.7.1'
 
 	// Use Scalatest for testing our library
-	testCompile 'junit:junit:4.12'
 	testCompile "org.springframework.boot:spring-boot-starter-test"
 
 	// Need scala-xml at test runtime
