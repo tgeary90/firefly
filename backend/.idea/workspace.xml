@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/BinarySerializers.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/BinarySerializers.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch-domain/src/test/scala/tom/ff/fetch/domain/BinarySerializersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/test/scala/tom/ff/fetch/domain/BinarySerializersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,26 +105,19 @@
       <recent name="$PROJECT_DIR$/gcp-connector/src/main/scala/tom/ff/gcp" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.BinarySerializersTest">
-    <configuration name="BinarySerializersSpec" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;tom.ff.fetch.io.BinarySerializersSpec&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":app-agent:cleanTest" />
-            <option value=":app-agent:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
+  <component name="RunManager" selected="Application.AgentApplication">
+    <configuration name="AgentApplication" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="tom.ff.fetch.AgentApplication" />
+      <module name="firefly.app-agent.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tom.ff.fetch.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="BinarySerializersTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -209,11 +201,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AgentApplication" />
         <item itemvalue="Gradle.BinarySerializersTest" />
         <item itemvalue="Gradle.LibrarySuite" />
         <item itemvalue="Gradle.LibrarySuite" />
         <item itemvalue="Gradle.SampleTest" />
-        <item itemvalue="Gradle.BinarySerializersTest" />
       </list>
     </recent_temporary>
   </component>
@@ -290,38 +282,38 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1587542160400" />
-    <state width="1807" height="239" key="GridCell.Tab.0.bottom" timestamp="1587722763095">
+    <state width="1807" height="296" key="GridCell.Tab.0.bottom" timestamp="1587747974509">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587722763095" />
-    <state width="1807" height="239" key="GridCell.Tab.0.center" timestamp="1587722763094">
+    <state width="1807" height="296" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587747974509" />
+    <state width="1807" height="296" key="GridCell.Tab.0.center" timestamp="1587747974508">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587722763094" />
-    <state width="1807" height="239" key="GridCell.Tab.0.left" timestamp="1587722763093">
+    <state width="1807" height="296" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587747974508" />
+    <state width="1807" height="296" key="GridCell.Tab.0.left" timestamp="1587747974507">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587722763093" />
-    <state width="1807" height="239" key="GridCell.Tab.0.right" timestamp="1587722763094">
+    <state width="1807" height="296" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587747974507" />
+    <state width="1807" height="296" key="GridCell.Tab.0.right" timestamp="1587747974508">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587722763094" />
-    <state width="1807" height="296" key="GridCell.Tab.1.bottom" timestamp="1587722469002">
+    <state width="1807" height="296" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587747974508" />
+    <state width="1807" height="296" key="GridCell.Tab.1.bottom" timestamp="1587747974511">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587722469002" />
-    <state width="1807" height="296" key="GridCell.Tab.1.center" timestamp="1587722468995">
+    <state width="1807" height="296" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587747974511" />
+    <state width="1807" height="296" key="GridCell.Tab.1.center" timestamp="1587747974510">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1587722468995" />
-    <state width="1807" height="296" key="GridCell.Tab.1.left" timestamp="1587722468988">
+    <state width="1807" height="296" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1587747974510" />
+    <state width="1807" height="296" key="GridCell.Tab.1.left" timestamp="1587747974510">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1587722468988" />
-    <state width="1807" height="296" key="GridCell.Tab.1.right" timestamp="1587722468998">
+    <state width="1807" height="296" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1587747974510" />
+    <state width="1807" height="296" key="GridCell.Tab.1.right" timestamp="1587747974511">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1587722468998" />
+    <state width="1807" height="296" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1587747974511" />
     <state x="638" y="218" width="701" height="574" key="RollbackChangesDialog" timestamp="1587713034793">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -356,6 +348,11 @@
           <url>file://$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala</url>
           <line>114</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
+          <line>16</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

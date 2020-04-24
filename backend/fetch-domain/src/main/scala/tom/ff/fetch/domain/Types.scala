@@ -5,8 +5,8 @@ object Types {
 
   /////// WorkFlows ///////////
 
-  class FetchError(msg: String, fails: List[FailedTransaction]) extends RuntimeException {
-    def getFailedTransactions: String = fails.mkString(", ")
+  class FetchError(msg: String, failedTransaction: FailedTransaction) extends RuntimeException {
+    def getFailedTransaction: String = failedTransaction
   }
 
   class JobError(msg: String) extends RuntimeException

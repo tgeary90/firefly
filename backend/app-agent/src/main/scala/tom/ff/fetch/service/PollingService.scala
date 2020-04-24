@@ -18,8 +18,8 @@ class PollingService(
                       @Value("${polling.interval}") pollingInterval: String
                     ) {
 
-  type ResultsWrapper = Seq[Seq[Result[FetchError, Transaction]]]
-  type JobsWrapper = Seq[Result[JobError, Job[Transaction]]]
+  type ResultsWrapper = Seq[Seq[Result[FetchError, RawTransaction]]]
+  type JobsWrapper = Seq[Result[JobError, Job[RawTransaction]]]
 
   val dateFormat    = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss")
   val log: Logger   = LoggerFactory.getLogger("PollingService")

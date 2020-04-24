@@ -10,29 +10,49 @@ import scala.collection.mutable.ArrayBuffer
 object Workflows {
 
   val fetch: Fetch = (connector: Connector) => {
+
+    def parseRawTransaction(obj: String): RawTransaction = {
+      val toks = obj.split(",")
+
+      val rawDebitCredit = toks(6).charAt(0)
+      val debitCredit = rawDebitCredit match {
+        case 'd' => Debit()
+        case 'c' => Credit()
+      }
+
+      RawTransaction(
+        Originator(
+          toks(0),
+          AccountNumber(toks(1).toLong)
+        ),
+        Beneficiary(
+          toks(2),
+          AccountNumber(toks(3).toInt)
+        ),
+        Money(toks(4).toDouble, toks(5)),
+        debitCredit
+      )
+    }
+
     val objects: Seq[Any] = connector.getObjects
     println(s"Fetch received ${objects.size} raw objects")
 
     val results = new ArrayBuffer[Result[FetchError, RawTransaction]]
 
-    objects
-      .collect {
-        case bytes: Array[Byte] => {
-          try {
-            // TODO this is not DataInputStream deserialization. Need custom GCP deserializer. ERROR on run
-            val txn = bytes.deserialize[RawTransaction]
-            results += Result(Right(txn))
-
-          }
-          catch {
-            case e: RuntimeException => {
-              results += Result(Left(new FetchError(e.getLocalizedMessage, List(new String(bytes, StandardCharsets.UTF_8)))))
-            }
-          }
+    objects.map(o => {
+      try {
+        val rawTransaction = new String(o.asInstanceOf[Array[Byte]], StandardCharsets.UTF_8)
+        val txn = parseRawTransaction(rawTransaction)
+        results += (Result(Right(txn)))
+      }
+      catch {
+        case e: RuntimeException => {
+          results += Result(Left(new FetchError(e.getLocalizedMessage, o.getClass.toString)))
         }
       }
+    })
 
-    println(s"Fetch produced ${results.size} transactions")
+    println(s"Fetch produced ${results.size} results")
     results.toSeq
   }
 
