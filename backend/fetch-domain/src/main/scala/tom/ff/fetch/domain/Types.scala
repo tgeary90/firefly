@@ -14,9 +14,10 @@ object Types {
   type FailedTransaction = String
   type Ack = String
 
-  type Fetch = Connector => Seq[Result[FetchError,Transaction]]
-  type CreateJob = Seq[Transaction] => Result[JobError, Job[Transaction]]
-  type Enqueue = (QueueClient, Job[Transaction]) => Result[JobError, Ack]
+  // note RawTransactions. ETL workflow to validate.
+  type Fetch = Connector => Seq[Result[FetchError, RawTransaction]]
+  type CreateJob = Seq[RawTransaction] => Result[JobError, Job[RawTransaction]]
+  type Enqueue = (QueueClient, Job[RawTransaction]) => Result[JobError, Ack]
 
   /////// Value Objects ///////
 

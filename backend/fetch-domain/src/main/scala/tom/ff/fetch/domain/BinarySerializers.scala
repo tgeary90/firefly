@@ -1,6 +1,6 @@
 package tom.ff.fetch.domain
 
-import java.io.{ByteArrayInputStream, DataInputStream}
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream, DataInputStream, DataOutputStream}
 import java.nio.charset.StandardCharsets
 
 import tom.ff.fetch.domain.Types._
@@ -16,155 +16,149 @@ object BinarySerializers {
     // Template
 
     trait Serialize[T] {
-        def toBinary(value: T): Array[Byte]
-        def fromBinary(bytes: Array[Byte]): T
+        def toBinaryStream(value: T, dos: DataOutputStream): Unit
+        def fromBinaryStream(dis: DataInputStream): T
     }
 
     // instances
 
     implicit object AccountNumberSerializer extends Serialize[AccountNumber] {
-        override def toBinary(value: AccountNumber): Array[Byte] = {
-            value.toString.getBytes(StandardCharsets.UTF_8)
+        override def toBinaryStream(value: AccountNumber, dos: DataOutputStream): Unit = {
+          dos.writeLong(value.value)
         }
-        override def fromBinary(bytes: Array[Byte]): AccountNumber = {
-            AccountNumber(new String(bytes, StandardCharsets.UTF_8).toLong)
+        override def fromBinaryStream(dis: DataInputStream): AccountNumber = {
+          AccountNumber(dis.readLong())
         }
     }
 
     implicit object DebitCreditSerializer extends Serialize[DebitCredit] {
-        override def toBinary(value: DebitCredit): Array[Byte] = {
-            value match {
-                case _: Debit => Array[Byte]('d')
-                case _: Credit => Array[Byte]('c')
-            }
-        }
+      override def toBinaryStream(value: DebitCredit, dos: DataOutputStream): Unit = {
+          value match {
+            case Debit() => dos.writeByte('d')
+            case Credit() => dos.writeByte('c')
+          }
+      }
 
-        override def fromBinary(bytes: Array[Byte]): DebitCredit = {
-            bytes(0) match {
-                case 'd' => Debit()
-                case 'c' => Credit()
-            }
+      override def fromBinaryStream(dis: DataInputStream): DebitCredit = {
+        dis.readByte() match {
+          case 'd' => Debit()
+          case 'c' => Credit()
         }
+      }
     }
 
     implicit object MoneySerializer extends Serialize[Money] {
-        override def toBinary(value: Money): Array[Byte] = {
-            val quantityBytes = value.quantity.toString.getBytes(StandardCharsets.UTF_8)
-            val currencyBytes = value.currency.getBytes(StandardCharsets.UTF_8)
-            (quantityBytes ++ currencyBytes).toArray[Byte]
-        }
+      override def toBinaryStream(value: Money, dos: DataOutputStream): Unit = {
+        dos.writeDouble(value.quantity)
+        dos.writeUTF(value.currency)
+      }
 
-        override def fromBinary(bytes: Array[Byte]): Money = {
-            val dis: DataInputStream = getDataStreamFor(bytes)
-            Money(
-                dis.readDouble(),
-                dis.readUTF()
-            )
-        }
+      override def fromBinaryStream(dis: DataInputStream): Money = {
+        Money(
+          dis.readDouble(),
+          dis.readUTF()
+        )
+      }
     }
 
     implicit object BeneficiarySerializer extends Serialize[Beneficiary] {
-        override def toBinary(value: Beneficiary): Array[Byte] = {
-            val accNoBytes = value.accNo.toBinary.toList
-            val nameBytes = value.name.getBytes(StandardCharsets.UTF_8)
-            (accNoBytes ++ nameBytes).toArray[Byte]
-        }
+      override def toBinaryStream(value: Beneficiary, dos: DataOutputStream): Unit = {
+        dos.writeUTF(value.name)
+        value.accNo.toBinaryStream(dos)
+      }
 
-        override def fromBinary(bytes: Array[Byte]): Beneficiary = {
-            Beneficiary(
-                new String(bytes, StandardCharsets.UTF_8),
-                DeserializeOps.fromBinary[AccountNumber](bytes)
-            )
-        }
+      override def fromBinaryStream(dis: DataInputStream): Beneficiary = {
+        Beneficiary(dis.readUTF(), dis.fromBinaryStream[AccountNumber])
+      }
     }
 
     implicit object OriginatorSerializer extends Serialize[Originator] {
-        override def toBinary(value: Originator): Array[Byte] = {
-            val accNoBytes = value.accNo.toBinary.toList
-            val nameBytes = value.name.getBytes(StandardCharsets.UTF_8)
-            (accNoBytes ++ nameBytes).toArray[Byte]
-        }
-
-        override def fromBinary(bytes: Array[Byte]): Originator = {
-            Originator(
-              new String(bytes, StandardCharsets.UTF_8),
-              DeserializeOps.fromBinary[AccountNumber](bytes)
-            )
-        }
-    }
-
-    implicit object TransactionSerializer extends Serialize[Transaction] {
-        override def toBinary(value: Transaction): Array[Byte] = {
-            value match {
-                case rt: RawTransaction => {
-                    val origBytes = rt.orig.toBinary.toList
-                    val beneBytes = rt.bene.toBinary.toList
-                    val amountBytes = rt.amount.toBinary.toList
-                    val dCBytes = rt.debitCredit.toBinary.toList
-                    (origBytes ++ beneBytes ++ amountBytes ++ dCBytes).toArray[Byte]
-                }
-                case _ => throw new JobError(s"Could not serialize transaction: $value")
-            }
-        }
-
-        override def fromBinary(bytes: Array[Byte]): Transaction = {
-            RawTransaction(
-                DeserializeOps.fromBinary[Originator](bytes),
-                DeserializeOps.fromBinary[Beneficiary](bytes),
-                DeserializeOps.fromBinary[Money](bytes),
-                DeserializeOps.fromBinary[DebitCredit](bytes)
-            )
-        }
-    }
-
-  implicit object JobSerializer extends Serialize[Job[Transaction]] {
-    override def toBinary(value: Job[Transaction]): Array[Byte] = {
-      val sizeBytes = value.size.toString.getBytes(StandardCharsets.UTF_8)
-      val transactionsBytes: Seq[Array[Byte]] = value.payload.map(txn => txn.toBinary)
-      val finalBytes = new ArrayBuffer[Array[Byte]]()
-
-      finalBytes += (sizeBytes)
-
-      transactionsBytes.foreach(tb => finalBytes += (tb))
-      finalBytes.flatten.toArray[Byte]
-    }
-
-    override def fromBinary(bytes: Array[Byte]): Job[Transaction] = {
-      val dis: DataInputStream = getDataStreamFor(bytes)
-      val size = dis.readInt()
-      val txns = new ArrayBuffer[Transaction]()
-
-      (1 to size) foreach {
-        txns += (DeserializeOps.fromBinary[Transaction](bytes))
+      override def toBinaryStream(value: Originator, dos: DataOutputStream): Unit = {
+        dos.writeUTF(value.name)
+        value.accNo.toBinaryStream(dos)
       }
 
-      Job[Transaction](
-        size,
-        txns.toSeq
+      override def fromBinaryStream(dis: DataInputStream): Originator = {
+        Originator(dis.readUTF(), dis.fromBinaryStream[AccountNumber])
+      }
+    }
+
+    implicit object TransactionSerializer extends Serialize[RawTransaction] {
+      override def toBinaryStream(value: RawTransaction, dos: DataOutputStream): Unit = {
+        value.orig.toBinaryStream(dos)
+        value.bene.toBinaryStream(dos)
+        value.amount.toBinaryStream(dos)
+        value.debitCredit.toBinaryStream(dos)
+      }
+
+      override def fromBinaryStream(dis: DataInputStream): RawTransaction = {
+        RawTransaction(
+          dis.fromBinaryStream[Originator],
+          dis.fromBinaryStream[Beneficiary],
+          dis.fromBinaryStream[Money],
+          dis.fromBinaryStream[DebitCredit]
+        )
+      }
+    }
+
+  implicit object JobSerializer extends Serialize[Job[RawTransaction]] {
+    override def toBinaryStream(value: Job[RawTransaction], dos: DataOutputStream): Unit = {
+      dos.writeInt(value.size)
+      value.payload.foreach(txn => txn.toBinaryStream(dos))
+    }
+
+    override def fromBinaryStream(dis: DataInputStream): Job[RawTransaction] = {
+      val jobSize = dis.readInt
+      Job(
+        jobSize,
+        for {
+          _ <- 1 to jobSize
+        } yield dis.fromBinaryStream[RawTransaction]
       )
     }
   }
 
-    // 3. interface (enrichment and object)
+  // 3. interface (enrichment)
 
-    implicit class SerializeOps[T](value: T) {
-        def toBinary(implicit serializer: Serialize[T]): Array[Byte] = {
-            serializer.toBinary(value)
-        }
+  implicit class StreamToOps[T](value: T) {
+    def toBinaryStream(dos: DataOutputStream)(implicit serializer: Serialize[T]): Unit = {
+      serializer.toBinaryStream(value, dos)
     }
+  }
 
-    object DeserializeOps {
-        def fromBinary[T](bytes: Array[Byte])(implicit serializer: Serialize[T]): T = {
-            serializer.fromBinary(bytes)
-        }
+  implicit class StreamFromOps[T](dis: DataInputStream) {
+    def fromBinaryStream[T](implicit serializer: Serialize[T]): T = {
+      serializer.fromBinaryStream(dis)
     }
+  }
+
+  implicit class SerializeOps[T](value: T) {
+      def serialize(implicit serializer: Serialize[T]): Array[Byte] = {
+        val (dos, bos) = getOutputDataStreams()
+        serializer.toBinaryStream(value, dos)
+        bos.toByteArray
+      }
+  }
+
+  implicit class DeserializeOps(value: Array[Byte]) {
+      def deserialize[T](implicit serializer: Serialize[T]): T = {
+        val dis = getInputDataStream(value)
+        serializer.fromBinaryStream(dis)
+      }
+  }
 
 
-    ///////////// Helper Functions //////////////////////
+  ///////////// Helper Functions //////////////////////
 
-    private def getDataStreamFor(bytes: Array[Byte]): DataInputStream = {
-        val bis = new ByteArrayInputStream(bytes)
-        val dis = new DataInputStream(bis)
-        dis
-    }
+  private def getInputDataStream(bytes: Array[Byte]): DataInputStream = {
+      val bis = new ByteArrayInputStream(bytes)
+      val dis = new DataInputStream(bis)
+      dis
+  }
+
+  private def getOutputDataStreams(): (DataOutputStream, ByteArrayOutputStream) = {
+    val bos = new ByteArrayOutputStream()
+    val dos = new DataOutputStream(bos)
+    (dos, bos)
+  }
 }

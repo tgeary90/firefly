@@ -13,13 +13,14 @@ object Workflows {
     val objects: Seq[Any] = connector.getObjects
     println(s"Fetch received ${objects.size} raw objects")
 
-    val results = new ArrayBuffer[Result[FetchError, Transaction]]
+    val results = new ArrayBuffer[Result[FetchError, RawTransaction]]
 
     objects
       .collect {
         case bytes: Array[Byte] => {
           try {
-            val txn = DeserializeOps.fromBinary[Transaction](bytes)
+            // TODO this is not DataInputStream deserialization. Need custom GCP deserializer. ERROR on run
+            val txn = bytes.deserialize[RawTransaction]
             results += Result(Right(txn))
 
           }
@@ -35,15 +36,15 @@ object Workflows {
     results.toSeq
   }
 
-  val createJob: CreateJob = (txns: Seq[Transaction]) => {
-    val job = Job[Transaction](txns.size, txns)
+  val createJob: CreateJob = (txns: Seq[RawTransaction]) => {
+    val job = Job[RawTransaction](txns.size, txns)
     println(s"Created job with ${txns.size} txns")
     Result(Right(job))
   }
 
-  val enqueue: Enqueue = (c: QueueClient, job: Job[Transaction]) => {
+  val enqueue: Enqueue = (c: QueueClient, job: Job[RawTransaction]) => {
     try {
-      c.produce(job.toBinary)
+      c.produce(job.serialize)
       println(s"Enqueued job with ${job.size} objects")
       Result(Right("Success"))
     }

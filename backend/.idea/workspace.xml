@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Types.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/BinarySerializers.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/test/scala/tom/ff/fetch/io/BinarySerializersTest.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/test/scala/tom/ff/fetch/io/Config.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-etl/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-etl/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-etl/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app-etl/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-etl/src/test/scala/tom/ff/etl/io/SampleTest.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gcp-connector/src/test/scala/tom/ff/gcp/agent/GCPConnectorTest.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/BinarySerializers.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/BinarySerializers.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch-domain/src/test/scala/tom/ff/fetch/domain/BinarySerializersTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/test/scala/tom/ff/fetch/domain/BinarySerializersTest.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +106,7 @@
       <recent name="$PROJECT_DIR$/gcp-connector/src/main/scala/tom/ff/gcp" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.LibrarySuite">
+  <component name="RunManager" selected="Gradle.BinarySerializersTest">
     <configuration name="BinarySerializersSpec" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -221,8 +209,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LibrarySuite" />
         <item itemvalue="Gradle.BinarySerializersTest" />
+        <item itemvalue="Gradle.LibrarySuite" />
         <item itemvalue="Gradle.LibrarySuite" />
         <item itemvalue="Gradle.SampleTest" />
         <item itemvalue="Gradle.BinarySerializersTest" />
@@ -274,10 +262,10 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="669" y="310" width="639" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.958@67.27.1853.958" timestamp="1586416925788" />
-    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1587455676824">
+    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1587719688614">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser/67.27.1853.958@67.27.1853.958" timestamp="1587455676824" />
+    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser/67.27.1853.958@67.27.1853.958" timestamp="1587719688614" />
     <state x="701" y="174" width="575" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1586246447768">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -294,46 +282,50 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="905" y="261" width="166" height="488" key="#xdebugger.XInspectDialog/67.27.1853.958@67.27.1853.958" timestamp="1587565644962" />
+    <state x="751" y="208" key="#xdebugger.evaluate" timestamp="1587722364526">
+      <screen x="67" y="27" width="1853" height="958" />
+    </state>
+    <state x="751" y="208" key="#xdebugger.evaluate/67.27.1853.958@67.27.1853.958" timestamp="1587722364526" />
     <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587542160400">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1587542160400" />
-    <state width="1807" height="239" key="GridCell.Tab.0.bottom" timestamp="1587628807599">
+    <state width="1807" height="239" key="GridCell.Tab.0.bottom" timestamp="1587722763095">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587628807599" />
-    <state width="1807" height="239" key="GridCell.Tab.0.center" timestamp="1587628807597">
+    <state width="1807" height="239" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587722763095" />
+    <state width="1807" height="239" key="GridCell.Tab.0.center" timestamp="1587722763094">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587628807597" />
-    <state width="1807" height="239" key="GridCell.Tab.0.left" timestamp="1587628807596">
+    <state width="1807" height="239" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587722763094" />
+    <state width="1807" height="239" key="GridCell.Tab.0.left" timestamp="1587722763093">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587628807596" />
-    <state width="1807" height="239" key="GridCell.Tab.0.right" timestamp="1587628807598">
+    <state width="1807" height="239" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587722763093" />
+    <state width="1807" height="239" key="GridCell.Tab.0.right" timestamp="1587722763094">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="239" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587628807598" />
-    <state width="1807" height="296" key="GridCell.Tab.1.bottom" timestamp="1587567175964">
+    <state width="1807" height="239" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587722763094" />
+    <state width="1807" height="296" key="GridCell.Tab.1.bottom" timestamp="1587722469002">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587567175964" />
-    <state width="1807" height="296" key="GridCell.Tab.1.center" timestamp="1587567175964">
+    <state width="1807" height="296" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587722469002" />
+    <state width="1807" height="296" key="GridCell.Tab.1.center" timestamp="1587722468995">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1587567175964" />
-    <state width="1807" height="296" key="GridCell.Tab.1.left" timestamp="1587567175963">
+    <state width="1807" height="296" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1587722468995" />
+    <state width="1807" height="296" key="GridCell.Tab.1.left" timestamp="1587722468988">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1587567175963" />
-    <state width="1807" height="296" key="GridCell.Tab.1.right" timestamp="1587567175964">
+    <state width="1807" height="296" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1587722468988" />
+    <state width="1807" height="296" key="GridCell.Tab.1.right" timestamp="1587722468998">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state width="1807" height="296" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1587567175964" />
-    <state x="638" y="218" width="701" height="574" key="RollbackChangesDialog" timestamp="1587626912955">
+    <state width="1807" height="296" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1587722468998" />
+    <state x="638" y="218" width="701" height="574" key="RollbackChangesDialog" timestamp="1587713034793">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="638" y="218" width="701" height="574" key="RollbackChangesDialog/67.27.1853.958@67.27.1853.958" timestamp="1587626912955" />
+    <state x="638" y="218" width="701" height="574" key="RollbackChangesDialog/67.27.1853.958@67.27.1853.958" timestamp="1587713034793" />
     <state x="476" y="82" width="1024" height="845" key="SettingsEditor" timestamp="1587135677340">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -354,6 +346,16 @@
           <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
           <line>24</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala</url>
+          <line>83</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala</url>
+          <line>114</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
