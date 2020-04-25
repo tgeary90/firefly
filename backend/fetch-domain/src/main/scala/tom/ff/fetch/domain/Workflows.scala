@@ -11,6 +11,12 @@ object Workflows {
 
   val fetch: Fetch = (connector: Connector) => {
 
+    def parseTransactions(file: Any): Seq[String] = {
+      val content = new String(file.asInstanceOf[Array[Byte]], StandardCharsets.UTF_8)
+      val lines: Seq[String] = content.split("\n")
+      lines
+    }
+
     def parseRawTransaction(obj: String): RawTransaction = {
       val toks = obj.split(",")
 
@@ -22,37 +28,44 @@ object Workflows {
 
       RawTransaction(
         Originator(
-          toks(0),
-          AccountNumber(toks(1).toLong)
+          toks(1),
+          AccountNumber(toks(0).toLong)
         ),
         Beneficiary(
-          toks(2),
-          AccountNumber(toks(3).toInt)
+          toks(3),
+          AccountNumber(toks(2).toInt)
         ),
         Money(toks(4).toDouble, toks(5)),
         debitCredit
       )
     }
 
-    val objects: Seq[Any] = connector.getObjects
-    println(s"Fetch received ${objects.size} raw objects")
+    val files: Seq[Any] = connector.getObjects
+    println(s"Fetch received ${files.size} raw objects")
 
     val results = new ArrayBuffer[Result[FetchError, RawTransaction]]
 
-    objects.map(o => {
+    files.map(file => {
       try {
-        val rawTransaction = new String(o.asInstanceOf[Array[Byte]], StandardCharsets.UTF_8)
-        val txn = parseRawTransaction(rawTransaction)
-        results += (Result(Right(txn)))
+        val lines: Seq[String] = parseTransactions(file)
+
+        lines.foreach {
+           line => {
+             val txn = parseRawTransaction(line)
+             results += (Result(Right(txn)))
+           }
+        }
       }
       catch {
         case e: RuntimeException => {
-          results += Result(Left(new FetchError(e.getLocalizedMessage, o.getClass.toString)))
+          results += Result(Left(new FetchError(e.getLocalizedMessage, file.getClass.toString)))
         }
       }
     })
 
-    println(s"Fetch produced ${results.size} results")
+    val oks = results.filter(r => r.result.isRight).size
+    val fails = results.filter(r => r.result.isLeft).size
+    println(s"Fetch produced ${oks} transactions and ${fails} failures")
     results.toSeq
   }
 
