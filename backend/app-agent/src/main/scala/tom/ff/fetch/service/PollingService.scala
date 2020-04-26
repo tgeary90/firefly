@@ -15,7 +15,8 @@ class PollingService(
                       registrationService: RegistrationService,
                       bucketService: BucketService,
                       queueClient: QueueClient,
-                      @Value("${polling.interval}") pollingInterval: String
+                      @Value("${polling.interval}") pollingInterval: String,
+                      fileTable: FileTable
                     ) {
 
   type ResultsWrapper = Seq[Seq[Result[FetchError, RawTransaction]]]
@@ -34,7 +35,7 @@ class PollingService(
 
     val results: ResultsWrapper = for {
       conn <- connectors
-    } yield Workflows.fetch(conn)
+    } yield Workflows.fetch(conn, fileTable)
 
     val batch: JobsWrapper = results.map {
       resultsPerConnector =>
@@ -44,7 +45,6 @@ class PollingService(
         val job = Workflows.createJob(txns)
         job
       }
-
 
     batch.foreach { result => Workflows.enqueue(queueClient, result.result.right.get) }
   }

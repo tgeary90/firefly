@@ -1,4 +1,5 @@
 package tom.ff.fetch.domain
+import scala.collection.mutable.{Map => MMap}
 
 
 object Types {
@@ -13,18 +14,23 @@ object Types {
 
   type FailedTransaction = String
   type Ack = String
+  type FileTable = MMap[Provider, Set[FileName]]
 
   // note RawTransactions. ETL workflow to validate.
-  type Fetch = Connector => Seq[Result[FetchError, RawTransaction]]
+  type Fetch = (Connector, FileTable) => Seq[Result[FetchError, RawTransaction]]
   type CreateJob = Seq[RawTransaction] => Result[JobError, Job[RawTransaction]]
   type Enqueue = (QueueClient, Job[RawTransaction]) => Result[JobError, Ack]
 
   /////// Value Objects ///////
 
+  type FileName = String
+  type Provider = String
+
   case class Result[A, B](result: Either[A, B])
 
   trait Connector {
-    def getObjects(): Seq[Any]
+    def getObjects(): Seq[(String, Any)]
+    def getProviderName(): String
   }
 
   trait QueueClient {

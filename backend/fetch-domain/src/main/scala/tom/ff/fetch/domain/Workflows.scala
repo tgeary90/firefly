@@ -9,10 +9,31 @@ import scala.collection.mutable.ArrayBuffer
 
 object Workflows {
 
-  val fetch: Fetch = (connector: Connector) => {
+  val fetch: Fetch = (connector: Connector, fileTable: FileTable) => {
+    def addToFileTable(fileTable: FileTable, provider: String, file: (String, Any)): Unit = {
+      val fileName = file match { case (name, _) => name }
+
+      if (fileTable.contains(provider)) {
+        val filesForProvider = fileTable(provider)
+        fileTable += (provider -> (filesForProvider + fileName))
+      }
+      else {
+        fileTable += (provider -> Set(fileName))
+      }
+    }
+
+    def isInFileTable(fileTable: FileTable, provider: Provider, file: (String, Any)): Boolean = {
+      val fileName = file match { case (name, _) => name }
+
+      if (fileTable.contains(provider)) {
+        fileTable(provider).contains(fileName)
+      }
+      else false
+    }
 
     def parseTransactions(file: Any): Seq[String] = {
-      val content = new String(file.asInstanceOf[Array[Byte]], StandardCharsets.UTF_8)
+      val bytes = file.asInstanceOf[Array[Byte]]
+      val content = new String(bytes, StandardCharsets.UTF_8)
       val lines: Seq[String] = content.split("\n")
       lines
     }
@@ -40,28 +61,33 @@ object Workflows {
       )
     }
 
-    val files: Seq[Any] = connector.getObjects
-    println(s"Fetch received ${files.size} raw objects")
+    val fileList: Seq[(String, Any)] = connector.getObjects
+    println(s"Fetch received ${fileList.size} raw objects")
 
     val results = new ArrayBuffer[Result[FetchError, RawTransaction]]
 
-    files.map(file => {
-      try {
-        val lines: Seq[String] = parseTransactions(file)
+    fileList.foreach(
+      file => {
+        try {
+          if ( ! isInFileTable(fileTable, connector.getProviderName(), file)) {
+            addToFileTable(fileTable, connector.getProviderName(), file)
+            val lines: Seq[String] = parseTransactions(file match { case (_, bytes) => bytes })
 
-        lines.foreach {
-           line => {
-             val txn = parseRawTransaction(line)
-             results += (Result(Right(txn)))
-           }
+            lines.foreach {
+               line => {
+                 val txn = parseRawTransaction(line)
+                 results += (Result(Right(txn)))
+               }
+            }
+          }
+        }
+        catch {
+          case e: RuntimeException => {
+            results += Result(Left(new FetchError(e.getLocalizedMessage, file.getClass.toString)))
+          }
         }
       }
-      catch {
-        case e: RuntimeException => {
-          results += Result(Left(new FetchError(e.getLocalizedMessage, file.getClass.toString)))
-        }
-      }
-    })
+    )
 
     val oks = results.filter(r => r.result.isRight).size
     val fails = results.filter(r => r.result.isLeft).size
@@ -77,9 +103,12 @@ object Workflows {
 
   val enqueue: Enqueue = (c: QueueClient, job: Job[RawTransaction]) => {
     try {
-      c.produce(job.serialize)
-      println(s"Enqueued job with ${job.size} objects")
-      Result(Right("Success"))
+      if (job.payload.size > 0){
+        c.produce(job.serialize)
+        println(s"Enqueued job with ${job.size} objects")
+        Result(Right("Success"))
+      }
+      else Result(Right("No op"))
     }
     catch {
       case e: Throwable => Result(Left(new JobError(e.getLocalizedMessage)))

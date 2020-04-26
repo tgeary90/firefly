@@ -17,11 +17,11 @@ class RabbitMQClient(
   val conn                       = factory.newConnection()
   val channel: Channel           = conn.createChannel()
   val log: Logger                = LoggerFactory.getLogger("RMQClient")
+  channel.queueDeclare(queueName, false, false, false, null)
 
   def produce(bytes: Array[Byte]): Unit = {
     try {
       log.info(s"Enqueueing ${bytes.length}b")
-      channel.queueDeclare(queueName, false, false, false, null)
       channel.basicPublish("", queueName, null, bytes)
     } catch {
       case e: RuntimeException => throw new JobError("could not send message")

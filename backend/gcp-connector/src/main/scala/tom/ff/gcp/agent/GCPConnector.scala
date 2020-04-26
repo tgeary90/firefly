@@ -11,6 +11,7 @@ import java.io.FileInputStream
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Value
 
+import scala.collection.Iterable
 import scala.collection.JavaConversions._
 import scala.collection.mutable.ArrayBuffer
 
@@ -26,12 +27,11 @@ class GCPConnector(@Value("${gcp.svc.account.file}") serviceAccountFile: String)
       new FileInputStream(serviceAccountFile))).build
   val storage = storageOptions.getService
 
-  def getObjects(): Seq[Any] = {
+  def getObjects(): Seq[(String, Any)] = {
     val buckets: Page[Bucket] = storage.list(BucketListOption.pageSize(100))
     val bucketList: List[Bucket] = buckets.iterateAll().toList
     log.info(s"Found ${bucketList.size} buckets")
 
-    val objectsBuffer = new ArrayBuffer[Any]()
     val pages: Seq[Page[Blob]] = for {
       bucket <- bucketList
     } yield bucket.list()
@@ -40,16 +40,12 @@ class GCPConnector(@Value("${gcp.svc.account.file}") serviceAccountFile: String)
       page <- pages
     } yield page.iterateAll().toSeq
 
-    val objectsList: Seq[Iterable[Array[Byte]]] = for {
+    val fileList: Seq[(String, Array[Byte])] = for {
       blobs <- blobsList
-    } yield blobs.map(b => b.getContent())
+      blob <- blobs
+    } yield (blob.getName, blob.getContent())
 
-    for {
-      objects <- objectsList
-      bytes <- objects
-    } yield objectsBuffer += (bytes)
-    log.info(s"Found ${objectsBuffer.size} objects")
-
-    objectsBuffer.toSeq
+    log.info(s"Returned ${fileList.size} objects from GCP buckets")
+    fileList
   }
 }

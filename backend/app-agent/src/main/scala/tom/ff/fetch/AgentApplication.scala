@@ -1,13 +1,14 @@
 package tom.ff.fetch
 
-import org.omg.IOP.TransactionService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.{Bean, ComponentScan}
 import org.springframework.scheduling.annotation.EnableScheduling
-import tom.ff.fetch.domain.Types.{Connector, Transaction}
+import tom.ff.fetch.domain.Types.{Connector, FileName, Provider}
 import tom.ff.fetch.service.RegistrationService
 import tom.ff.gcp.agent.GCPConnector
+
+import scala.collection.mutable.{Map => MMap}
 
 @SpringBootApplication
 @ComponentScan(
@@ -20,9 +21,13 @@ import tom.ff.gcp.agent.GCPConnector
 class AgentApp() {
 
   @Bean
+  def fileTable: MMap[Provider, Set[FileName]] = MMap.empty[Provider, Set[FileName]]
+
+  @Bean
   def gcpAgent(gcpAgent: GCPConnector, registrationService: RegistrationService): Connector = {
     val connector = new Connector {
-      override def getObjects(): Seq[Any] = gcpAgent.getObjects()
+      override def getObjects(): Seq[(String, Any)] = gcpAgent.getObjects()
+      override def getProviderName(): String = "gcp"
     }
     registrationService.addConnector(connector)
     connector
