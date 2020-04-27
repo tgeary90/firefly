@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/AgentApplication.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/AgentApplication.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/RabbitMQClient.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/RabbitMQClient.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Types.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala" afterDir="false" />
@@ -286,30 +284,34 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="751" y="208" key="#xdebugger.evaluate/67.27.1853.958@67.27.1853.958" timestamp="1587918225313" />
+    <state x="167" y="125" width="1653" height="760" key="DiffContextDialog" timestamp="1587972518145">
+      <screen x="67" y="27" width="1853" height="958" />
+    </state>
+    <state x="167" y="125" width="1653" height="760" key="DiffContextDialog/67.27.1853.958@67.27.1853.958" timestamp="1587972518145" />
     <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587542160400">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1587542160400" />
-    <state width="1807" height="295" key="GridCell.Tab.0.bottom" timestamp="1587933632703">
+    <state width="1807" height="231" key="GridCell.Tab.0.bottom" timestamp="1587972188106">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state width="1807" height="231" key="GridCell.Tab.0.bottom/67.27.1853.935@67.27.1853.935" timestamp="1587823958280" />
-    <state width="1807" height="295" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587933632703" />
-    <state width="1807" height="295" key="GridCell.Tab.0.center" timestamp="1587933632702">
+    <state width="1807" height="231" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1587972188106" />
+    <state width="1807" height="231" key="GridCell.Tab.0.center" timestamp="1587972188104">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state width="1807" height="231" key="GridCell.Tab.0.center/67.27.1853.935@67.27.1853.935" timestamp="1587823958279" />
-    <state width="1807" height="295" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587933632702" />
-    <state width="1807" height="295" key="GridCell.Tab.0.left" timestamp="1587933632701">
+    <state width="1807" height="231" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1587972188104" />
+    <state width="1807" height="231" key="GridCell.Tab.0.left" timestamp="1587972188104">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state width="1807" height="231" key="GridCell.Tab.0.left/67.27.1853.935@67.27.1853.935" timestamp="1587823958279" />
-    <state width="1807" height="295" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587933632701" />
-    <state width="1807" height="295" key="GridCell.Tab.0.right" timestamp="1587933632702">
+    <state width="1807" height="231" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1587972188104" />
+    <state width="1807" height="231" key="GridCell.Tab.0.right" timestamp="1587972188105">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state width="1807" height="231" key="GridCell.Tab.0.right/67.27.1853.935@67.27.1853.935" timestamp="1587823958279" />
-    <state width="1807" height="295" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587933632702" />
+    <state width="1807" height="231" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1587972188105" />
     <state width="1807" height="295" key="GridCell.Tab.1.bottom" timestamp="1587933632705">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -358,26 +360,6 @@
           <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
           <line>24</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint type="scala-line">
-          <url>file://$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
-          <line>71</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala</url>
-          <line>39</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala</url>
-          <line>35</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
-          <line>94</line>
-          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

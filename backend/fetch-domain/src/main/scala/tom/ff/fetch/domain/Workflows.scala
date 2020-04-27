@@ -62,7 +62,6 @@ object Workflows {
     }
 
     val fileList: Seq[(String, Any)] = connector.getObjects
-    println(s"Fetch received ${fileList.size} raw objects")
 
     val results = new ArrayBuffer[Result[FetchError, RawTransaction]]
 
@@ -91,8 +90,11 @@ object Workflows {
 
     val oks = results.filter(r => r.result.isRight).size
     val fails = results.filter(r => r.result.isLeft).size
-    println(s"Fetch produced ${oks} transactions and ${fails} failures")
-    results.toSeq
+
+    if (results.size == 0) None else {
+      println(s"Fetch produced ${oks} transactions and ${fails} failures")
+      Some(results.toSeq)
+    }
   }
 
   val createJob: CreateJob = (txns: Seq[RawTransaction]) => {

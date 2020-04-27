@@ -1,25 +1,23 @@
 package tom.ff.gcp.agent
 
-import org.springframework.stereotype.Component
-import com.google.api.gax.paging.Page
-import com.google.cloud.storage.Storage.BucketListOption
-import com.google.cloud.storage.{Blob, Bucket, Storage, StorageOptions}
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.storage.StorageOptions
 import java.io.FileInputStream
 
+import com.google.api.gax.paging.Page
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.cloud.storage.Storage.BucketListOption
+import com.google.cloud.storage.{Blob, Bucket, StorageOptions}
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 
 import scala.collection.Iterable
 import scala.collection.JavaConversions._
-import scala.collection.mutable.ArrayBuffer
 
 @Component
 class GCPConnector(@Value("${gcp.svc.account.file}") serviceAccountFile: String) {
 
-  val log: Logger         = LoggerFactory.getLogger("GCPConnector")
-  log.info(s"Reading Service Account File at: $serviceAccountFile")
+  val log: Logger = LoggerFactory.getLogger("GCPConnector")
+  log.debug(s"Reading Service Account File at: $serviceAccountFile")
 
   val storageOptions = StorageOptions.newBuilder
     .setProjectId("the-dock-259022")
@@ -30,7 +28,7 @@ class GCPConnector(@Value("${gcp.svc.account.file}") serviceAccountFile: String)
   def getObjects(): Seq[(String, Any)] = {
     val buckets: Page[Bucket] = storage.list(BucketListOption.pageSize(100))
     val bucketList: List[Bucket] = buckets.iterateAll().toList
-    log.info(s"Found ${bucketList.size} buckets")
+    log.debug(s"Found ${bucketList.size} buckets")
 
     val pages: Seq[Page[Blob]] = for {
       bucket <- bucketList
@@ -45,7 +43,7 @@ class GCPConnector(@Value("${gcp.svc.account.file}") serviceAccountFile: String)
       blob <- blobs
     } yield (blob.getName, blob.getContent())
 
-    log.info(s"Returned ${fileList.size} objects from GCP buckets")
+    log.debug(s"Returned ${fileList.size} objects from GCP buckets")
     fileList
   }
 }
