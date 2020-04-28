@@ -1,36 +1,56 @@
-package tom.ff.fetch.domain
+package tom.ff.etl.domain
+
 import scala.collection.mutable.{Map => MMap}
 
 
-object Types {
+object ETLTypes {
 
   /////// WorkFlows ///////////
 
-  class FetchError(msg: String, failedTransaction: FailedTransaction) extends RuntimeException {
-    def getFailedTransaction: String = failedTransaction
-  }
+  class JobError(msg: String, e: Throwable) extends RuntimeException
+  class LoadError(msg: String) extends RuntimeException
 
-  class JobError(msg: String) extends RuntimeException
-
-  type FailedTransaction = String
-  type Ack = String
-  type FileTable = MMap[Provider, Set[FileName]]
-
-  // note RawTransactions. ETL workflow to validate.
-  type Fetch = (Connector, FileTable) => Option[Seq[Result[FetchError, RawTransaction]]]
-  type CreateJob = Seq[RawTransaction] => Result[JobError, Job[RawTransaction]]
-  type Enqueue = (QueueClient, Job[RawTransaction]) => Result[JobError, Ack]
+  type Dequeue = Array[Byte] => Result[Seq[RawTransaction]]
+  type Validate = Seq[RawTransaction] => Result[Seq[ValidatedTransaction]]
+  type Load = Seq[ValidatedTransaction] => Result[Seq[LoadResponse]]
 
   /////// Value Objects ///////
 
-  type FileName = String
-  type Provider = String
+  case class LoadResponse(documentId: String)
 
-  case class Result[A, B](result: Either[A, B])
+  trait Result[+A] {
+    def map[B](f: A => B): Result[B]
+    def flatMap[B](f: A => Result[B]): Result[B]
+    def get: Any
+  }
 
-  trait Connector {
-    def getObjects(): Seq[(String, Any)]
-    def getProviderName(): String
+  // pass in by-name so that the result in
+  // constructed safely within the function
+  object Result {
+    def apply[A](value: => A): Result[A] = {
+      try {
+        Success(value)
+      }
+      catch {
+        case e: RuntimeException => Fail(e)
+      }
+    }
+  }
+
+  case class Success[A](value: A) extends Result[A] {
+    override def map[B](f: A => B): Result[B] = Result[B](f(value))
+    override def flatMap[B](f: A => Result[B]): Result[B] = f(value)
+    override def get: A = value
+  }
+
+  case class Fail(e: RuntimeException) extends Result[Nothing] {
+    override def map[B](f: Nothing => B): Result[B] = this
+    override def flatMap[B](f: Nothing => Result[B]): Result[B] = this
+    override def get: String = e.getLocalizedMessage
+  }
+
+  trait LoadClient {
+    def load(txns: Seq[ValidatedTransaction]): Seq[LoadResponse]
   }
 
   trait QueueClient {
@@ -65,13 +85,13 @@ object Types {
 
   //////// Entities ///////////
 
-  class Bucket(val id: Int, val url: String, numObjects: Long, lastETLDate: java.sql.Date) {
+  class Bucket(val id: Int, val url: String) {
     def canEqual(that: Any): Boolean = that.isInstanceOf[Bucket]
 
     override def equals(that: Any): Boolean = {
       that match {
         case b: Bucket => {
-          (this eq b) || (b.canEqual(this)) && (hashCode == b.hashCode()) && (id == b.id)
+          (this eq b) || (b.canEqual(this)) && (hashCode == b.hashCode()) && (id == b.id) && (url == b.url)
         }
         case _ => false
       }
