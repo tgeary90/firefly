@@ -1,6 +1,6 @@
 package tom.ff.etl.domain
 
-import scala.collection.mutable.{Map => MMap}
+import scala.runtime.Nothing$
 
 
 object ETLTypes {
@@ -10,9 +10,21 @@ object ETLTypes {
   class JobError(msg: String, e: Throwable) extends RuntimeException
   class LoadError(msg: String) extends RuntimeException
 
-  type Dequeue = Array[Byte] => Result[Seq[RawTransaction]]
+  type Dequeue = Array[Byte] => Result[(Seq[RawTransaction], JobMetadata)]
   type Validate = Seq[RawTransaction] => Result[Seq[ValidatedTransaction]]
-  type Load = Seq[ValidatedTransaction] => Result[Seq[LoadResponse]]
+  type Load = (JobMetadata, Seq[ValidatedTransaction]) => Result[Seq[LoadResponse]]
+
+  /////////// Clients ////////////
+
+  trait LoadClientFactory {
+//    def load(metadata: JobMetadata, txns: Seq[ValidatedTransaction]): Load
+    def getLoaderFlow(): Load
+  }
+
+  trait QueueClient {
+    def produce(bytes: Array[Byte]): Unit
+    def consume(): Array[Byte]
+  }
 
   /////// Value Objects ///////
 
@@ -22,6 +34,7 @@ object ETLTypes {
     def map[B](f: A => B): Result[B]
     def flatMap[B](f: A => Result[B]): Result[B]
     def get: Any
+    def withFilter(p: A => Boolean): Result[A]
   }
 
   // pass in by-name so that the result in
@@ -41,21 +54,14 @@ object ETLTypes {
     override def map[B](f: A => B): Result[B] = Result[B](f(value))
     override def flatMap[B](f: A => Result[B]): Result[B] = f(value)
     override def get: A = value
+    override def withFilter(p: A => Boolean): Result[A] = if (p(value)) this else null
   }
 
   case class Fail(e: RuntimeException) extends Result[Nothing] {
     override def map[B](f: Nothing => B): Result[B] = this
     override def flatMap[B](f: Nothing => Result[B]): Result[B] = this
     override def get: String = e.getLocalizedMessage
-  }
-
-  trait LoadClient {
-    def load(txns: Seq[ValidatedTransaction]): Seq[LoadResponse]
-  }
-
-  trait QueueClient {
-    def produce(bytes: Array[Byte]): Unit
-    def consume(): Array[Byte]
+    override def withFilter(p: Nothing => Boolean): Result[Nothing] = this
   }
 
   case class AccountNumber(value: Long)
@@ -81,7 +87,8 @@ object ETLTypes {
                                    debitCredit: DebitCredit
                                  ) extends Transaction
 
-  case class Job[T](size: Int, payload: Seq[T])
+  case class Job[T](size: Int, payload: Seq[T], metadata: JobMetadata)
+  case class JobMetadata(jobType: String, provider: String)
 
   //////// Entities ///////////
 
@@ -162,3 +169,5 @@ object ETLTypes {
     }
   }
 }
+
+

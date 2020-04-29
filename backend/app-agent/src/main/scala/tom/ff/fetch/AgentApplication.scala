@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.{Bean, ComponentScan}
 import org.springframework.scheduling.annotation.EnableScheduling
-import tom.ff.fetch.domain.Types.{Connector, FileName, Provider}
+import tom.ff.fetch.domain.FetchTypes.{Connector, FileName, Provider}
 import tom.ff.fetch.service.RegistrationService
 import tom.ff.gcp.agent.GCPConnector
 

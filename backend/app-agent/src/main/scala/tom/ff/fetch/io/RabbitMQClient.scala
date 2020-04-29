@@ -4,7 +4,7 @@ import com.rabbitmq.client.{CancelCallback, Channel, ConnectionFactory, DeliverC
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import tom.ff.fetch.domain.Types.{JobError, QueueClient}
+import tom.ff.fetch.domain.FetchTypes.{JobError, QueueClient}
 
 @Component
 class RabbitMQClient(

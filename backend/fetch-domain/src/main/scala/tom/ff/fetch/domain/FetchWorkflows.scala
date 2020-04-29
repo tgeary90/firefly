@@ -3,11 +3,11 @@ package tom.ff.fetch.domain
 import java.nio.charset.StandardCharsets
 
 import tom.ff.fetch.domain.BinarySerializers._
-import tom.ff.fetch.domain.Types._
+import tom.ff.fetch.domain.FetchTypes._
 
 import scala.collection.mutable.ArrayBuffer
 
-object Workflows {
+object FetchWorkflows {
 
   val fetch: Fetch = (connector: Connector, fileTable: FileTable) => {
     def addToFileTable(fileTable: FileTable, provider: String, file: (String, Any)): Unit = {
@@ -97,9 +97,9 @@ object Workflows {
     }
   }
 
-  val createJob: CreateJob = (txns: Seq[RawTransaction]) => {
-    val job = Job[RawTransaction](txns.size, txns)
-    println(s"Created job with ${txns.size} txns")
+  val createJob: CreateJob = (connector: Connector, txns: Seq[RawTransaction]) => {
+    val job = Job[RawTransaction](txns.size, txns, JobMetadata("ETL", connector.getProviderName()))
+    println(s"Created ETL job for ${connector.getProviderName()} with ${txns.size} txns")
     Result(Right(job))
   }
 

@@ -1,7 +1,7 @@
 package tom.ff.fetch.service
 
 import org.springframework.stereotype.Component
-import tom.ff.fetch.domain.Types.Connector
+import tom.ff.fetch.domain.FetchTypes.Connector
 
 import scala.collection.mutable.ArrayBuffer
 

@@ -28,6 +28,11 @@ dependencies {
 	// Rabbit MQ for queueing
 	compile 'com.rabbitmq:amqp-client:5.7.1'
 
+	// elastic4s client
+	compile "com.sksamuel.elastic4s:elastic4s-core_2.11:6.4.0"
+	compile "com.sksamuel.elastic4s:elastic4s-http_2.11:6.4.0"
+	compile group: 'com.sksamuel.elastic4s', name: 'elastic4s-sttp_2.11', version: '6.4.0'
+
 	// Use Scalatest for testing our library
 	testCompile "org.springframework.boot:spring-boot-starter-test"
 }

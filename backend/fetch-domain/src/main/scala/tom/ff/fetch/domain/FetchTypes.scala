@@ -2,7 +2,7 @@ package tom.ff.fetch.domain
 import scala.collection.mutable.{Map => MMap}
 
 
-object Types {
+object FetchTypes {
 
   /////// WorkFlows ///////////
 
@@ -18,7 +18,7 @@ object Types {
 
   // note RawTransactions. ETL workflow to validate.
   type Fetch = (Connector, FileTable) => Option[Seq[Result[FetchError, RawTransaction]]]
-  type CreateJob = Seq[RawTransaction] => Result[JobError, Job[RawTransaction]]
+  type CreateJob = (Connector, Seq[RawTransaction]) => Result[JobError, Job[RawTransaction]]
   type Enqueue = (QueueClient, Job[RawTransaction]) => Result[JobError, Ack]
 
   /////// Value Objects ///////
@@ -61,7 +61,8 @@ object Types {
                                    debitCredit: DebitCredit
                                  ) extends Transaction
 
-  case class Job[T](size: Int, payload: Seq[T])
+  case class Job[T](size: Int, payload: Seq[T], metadata: JobMetadata)
+  case class JobMetadata(jobType: String, provider: String)
 
   //////// Entities ///////////
 

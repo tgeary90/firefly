@@ -2,7 +2,7 @@ package tom.ff.fetch.io
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.{DeleteMapping, GetMapping, PostMapping, RestController}
-import tom.ff.fetch.domain.Types.Bucket
+import tom.ff.fetch.domain.FetchTypes.Bucket
 import tom.ff.fetch.service.{BucketService, PollingService}
 
 @RestController("/buckets")

@@ -3,16 +3,20 @@ package tom.ff.etl.domain
 import tom.ff.etl.domain.ETLTypes._
 import tom.ff.etl.domain.BinarySerializers._
 
-object Workflows {
+object ETLWorkflows {
 
 /*
-  type Dequeue = (Array[Byte]) => Result[Seq[RawTransaction]]
-  type Validate = (Seq[RawTransaction]) => Result[Seq[ValidatedTransaction]]
-  type Load = Seq[ValidatedTransaction] => Result[LoadResponse]
+  type Dequeue = Array[Byte] => Result[(Seq[RawTransaction], JobMetadata)]
+  type Validate = Seq[RawTransaction] => Result[Seq[ValidatedTransaction]]
  */
 
   val dequeue: Dequeue = (bytes: Array[Byte]) => {
-    Result(bytes.deserialize[Job[RawTransaction]].payload)
+    val dequeueJob = (bytes: Array[Byte]) => {
+      val job = bytes.deserialize[Job[RawTransaction]]
+      (job.payload, job.metadata)
+    }
+    val result = Result(dequeueJob(bytes))
+    result
   }
 
   val validate: Validate = (rawTxns: Seq[RawTransaction]) => {
@@ -39,9 +43,5 @@ object Workflows {
         )
       )
     )
-  }
-
-  val load: Load = (validatedTxns: Seq[ValidatedTransaction]) => {
-    null
   }
 }

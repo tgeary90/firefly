@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import tom.ff.fetch.domain.BinarySerializers._
-import tom.ff.fetch.domain.Types._
+import tom.ff.fetch.domain.FetchTypes._
 
 @RunWith(classOf[JUnitRunner])
 class BinarySerializersTest extends FlatSpec {
@@ -26,7 +26,8 @@ class BinarySerializersTest extends FlatSpec {
           Money(20.0, "creds"),
           Credit()
         )
-      )
+      ),
+      JobMetadata("ETL", "gcp")
     )
 
     val jobBytes: Array[Byte]                 = job.serialize

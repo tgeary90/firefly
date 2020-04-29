@@ -7,8 +7,8 @@ import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
-import tom.ff.fetch.domain.Types._
-import tom.ff.fetch.domain.Workflows
+import tom.ff.fetch.domain.FetchTypes._
+import tom.ff.fetch.domain.FetchWorkflows
 
 @Component
 class PollingService(
@@ -35,7 +35,7 @@ class PollingService(
 
     val aggregateResults: AggregateResults = for {
       conn <- connectors
-    } yield Workflows.fetch(conn, fileTable)
+    } yield FetchWorkflows.fetch(conn, fileTable)
 
     val batches: Batch = aggregateResults.map {
       maybeResults => {
@@ -45,7 +45,7 @@ class PollingService(
               res =>
                 List(res.result.right.toOption)
             }.flatten.toList
-            val job = Workflows.createJob(txns)
+            val job = FetchWorkflows.createJob(connectors(0), txns) // TODO only  works when theres one connector
             job
           }
         }
@@ -54,7 +54,7 @@ class PollingService(
 
     batches.map { maybeBatch =>
       maybeBatch.map { batch =>
-          Workflows.enqueue(queueClient, batch.result.right.get)
+          FetchWorkflows.enqueue(queueClient, batch.result.right.get)
         }
       }
   }

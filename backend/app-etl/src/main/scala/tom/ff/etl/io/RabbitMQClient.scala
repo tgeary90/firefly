@@ -3,7 +3,7 @@ package tom.ff.etl.io
 import com.rabbitmq.client._
 import org.slf4j.{Logger, LoggerFactory}
 import tom.ff.etl.domain.ETLTypes._
-import tom.ff.etl.domain.Workflows
+import tom.ff.etl.domain.ETLWorkflows
 
 class RabbitMQClient(
                       queueName: String,
@@ -46,9 +46,9 @@ class RabbitMQClient(
       channel.basicConsume(queueName, true, deliverCallback, cancel)
 
       val responseList = for {
-        txns                  <- Workflows.dequeue(received)
-        validatedTransactions <- Workflows.validate(txns)
-        responses             <- Workflows.load(validatedTransactions)
+        (txns, ctx)           <- ETLWorkflows.dequeue(received)
+        validatedTransactions <- ETLWorkflows.validate(txns)
+        responses             <- ElasticClientFactory.getLoaderFlow()(ctx, validatedTransactions)
       } yield responses
 
       received

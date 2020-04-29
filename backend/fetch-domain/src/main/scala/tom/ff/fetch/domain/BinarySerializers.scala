@@ -3,7 +3,7 @@ package tom.ff.fetch.domain
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream, DataInputStream, DataOutputStream}
 import java.nio.charset.StandardCharsets
 
-import tom.ff.fetch.domain.Types._
+import tom.ff.fetch.domain.FetchTypes._
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -101,10 +101,22 @@ object BinarySerializers {
       }
     }
 
+  implicit object JobMetadataSerializer extends Serialize[JobMetadata] {
+    override def toBinaryStream(value: JobMetadata, dos: DataOutputStream): Unit = {
+      dos.writeUTF(value.jobType)
+      dos.writeUTF(value.provider)
+    }
+
+    override def fromBinaryStream(dis: DataInputStream): JobMetadata = {
+      JobMetadata(dis.readUTF(), dis.readUTF())
+    }
+  }
+
   implicit object JobSerializer extends Serialize[Job[RawTransaction]] {
     override def toBinaryStream(value: Job[RawTransaction], dos: DataOutputStream): Unit = {
       dos.writeInt(value.size)
       value.payload.foreach(txn => txn.toBinaryStream(dos))
+      value.metadata.toBinaryStream(dos)
     }
 
     override def fromBinaryStream(dis: DataInputStream): Job[RawTransaction] = {
@@ -113,7 +125,8 @@ object BinarySerializers {
         jobSize,
         for {
           _ <- 1 to jobSize
-        } yield dis.fromBinaryStream[RawTransaction]
+        } yield dis.fromBinaryStream[RawTransaction],
+        dis.fromBinaryStream[JobMetadata]
       )
     }
   }

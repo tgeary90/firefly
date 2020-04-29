@@ -4,7 +4,7 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 import org.springframework.stereotype.Component
-import tom.ff.fetch.domain.Types.Bucket
+import tom.ff.fetch.domain.FetchTypes.Bucket
 
 import scala.collection.mutable.ArrayBuffer
 
