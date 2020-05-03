@@ -17,13 +17,12 @@ object ETLTypes {
   /////////// Clients ////////////
 
   trait LoadClientFactory {
-//    def load(metadata: JobMetadata, txns: Seq[ValidatedTransaction]): Load
     def getLoaderFlow(): Load
   }
 
   trait QueueClient {
     def produce(bytes: Array[Byte]): Unit
-    def consume(): Array[Byte]
+    def consume(): Unit
   }
 
   /////// Value Objects ///////

@@ -25,12 +25,15 @@ object ElasticClientFactory extends LoadClientFactory {
 
     val responses = txns.map { t =>
       val resp = client.execute {
-        indexInto(s"{metadata.provider}" / "transactions")
+        indexInto(metadata.provider / "transactions")
           .fields(
-            "beneficiary" -> t.bene,
-            "originator" -> t.orig,
-            "amount" -> t.amount,
-            "debitCredit" -> t.debitCredit
+            "beneficiary.accNo" -> t.bene.accNo,
+            "beneficiary.name"          -> t.bene.name,
+            "originator.accNo"          -> t.orig.accNo,
+            "originator.name"           ->t.orig.name,
+            "amount"                    -> t.amount.quantity,
+            "currency"                  -> t.amount.currency,
+            "debitCredit"               -> t.debitCredit.toString
           ).refresh(RefreshPolicy.Immediate)
       }.await.result
 

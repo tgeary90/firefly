@@ -26,16 +26,21 @@ class RabbitMQClient(
     }
   }
 
-  def consume(): Array[Byte] = {
-    var received: Array[Byte] = null
-
+  def consume(): Unit = {
     try {
       log.info(s"Awaiting messages...")
 
       val deliverCallback = new DeliverCallback {
         override def handle(consumerTag: String, message: Delivery): Unit = {
           log.info(s"Received message of ${message.getBody.length} bytes")
-          received = message.getBody
+
+          val responseList = for {
+            (txns, ctx)           <- ETLWorkflows.dequeue(message.getBody)
+            validatedTransactions <- ETLWorkflows.validate(txns)
+            responses             <- ElasticClientFactory.getLoaderFlow()(ctx, validatedTransactions)
+          } yield responses
+
+          // TODO do something with the responses - log ?
         }
       }
 
@@ -44,14 +49,6 @@ class RabbitMQClient(
       }
 
       channel.basicConsume(queueName, true, deliverCallback, cancel)
-
-      val responseList = for {
-        (txns, ctx)           <- ETLWorkflows.dequeue(received)
-        validatedTransactions <- ETLWorkflows.validate(txns)
-        responses             <- ElasticClientFactory.getLoaderFlow()(ctx, validatedTransactions)
-      } yield responses
-
-      received
     }
     catch {
       case e: RuntimeException => throw new JobError("Could not consume message", e)
