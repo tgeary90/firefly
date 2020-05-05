@@ -1,0 +1,28 @@
+@Library('cicd-lib') _
+
+import tom.groovy.libs.AppVersion
+import tom.groovy.libs.cicd_lib
+
+def appVersion = new AppVersion(release: "snapshot", version: "1.0")
+def printer = new cicd_lib()
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo "Hello World"'
+                sh '''
+                    echo "Multiline shell steps works too"
+                    ls -lah
+                '''
+                script {
+                  utils.info("finishing build")
+		  printer.echoThis("yo")
+		  echo appVersion.version
+                  echo appVersion.release
+                }
+            }
+        }
+    }
+}

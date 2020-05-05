@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/PollingService.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/etl-domain/src/main/scala/Library.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/etl-domain/src/test/scala/LibrarySuite.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/Library.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchTypes.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchTypes.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchWorkflows.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchWorkflows.scala" afterDir="false" />
-    </list>
+    <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -341,10 +333,10 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="167" y="125" width="1653" height="760" key="DiffContextDialog/67.27.1853.958@67.27.1853.958" timestamp="1587972518145" />
-    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587542160400">
+    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1588691562999">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1587542160400" />
+    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1588691562999" />
     <state width="1807" height="231" key="GridCell.Tab.0.bottom" timestamp="1588663751336">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -401,6 +393,10 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="634" y="236" width="719" height="538" key="find.popup/67.27.1853.958@67.27.1853.958" timestamp="1588611154467" />
+    <state x="302" y="231" width="1372" height="547" key="new project wizard" timestamp="1588691572292">
+      <screen x="67" y="27" width="1853" height="958" />
+    </state>
+    <state x="302" y="231" width="1372" height="547" key="new project wizard/67.27.1853.958@67.27.1853.958" timestamp="1588691572292" />
     <state x="656" y="234" width="672" height="678" key="search.everywhere.popup" timestamp="1588088543835">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
