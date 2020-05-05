@@ -19,11 +19,8 @@ class PollingService(
                       fileTable: FileTable
                     ) {
 
-  type AggregateResults = Seq[Option[Seq[Result[FetchError, RawTransaction]]]]
-  type Batch = Seq[Option[Result[JobError, Job[RawTransaction]]]]
-
-  val dateFormat    = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss")
-  val log: Logger   = LoggerFactory.getLogger("PollingService")
+  val dateFormat            = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss")
+  val log: Logger           = LoggerFactory.getLogger("PollingService")
 
   log.info(s"Polling interval set at ${pollingInterval} ms")
 
@@ -33,30 +30,31 @@ class PollingService(
 
     val connectors: Seq[Connector]  = registrationService.getConnectors
 
-    val aggregateResults: AggregateResults = for {
-      conn <- connectors
-    } yield FetchWorkflows.fetch(conn, fileTable)
+    val ts =   Seq(
+      RawTransaction(
+        Originator("mickey", AccountNumber(12345678)),
+        Beneficiary("mallory", AccountNumber(87654321)),
+        Money(10.0, "stirling"),
+        Debit()
+      ),
+      RawTransaction(
+        Originator("han sole", AccountNumber(12345633)),
+        Beneficiary("luke skywalker", AccountNumber(87654344)),
+        Money(20.0, "creds"),
+        Credit()
+      )
+    )
 
-    val batches: Batch = aggregateResults.map {
-      maybeResults => {
-        maybeResults.map {
-          maybeResultsPerConnector => {
-            val txns = maybeResultsPerConnector.flatMap {
-              res =>
-                List(res.result.right.toOption)
-            }.flatten.toList
-            val job = FetchWorkflows.createJob(connectors(0), txns) // TODO only  works when theres one connector
-            job
-          }
-        }
-      }
+    for (connector <- connectors) {
+      val acknowledgements = for {
+        responsesForThatCloud <- FetchWorkflows.fetchObjects(connector, fileTable)
+        job                   <- FetchWorkflows.createJob(connector, responsesForThatCloud)
+        ack                   <- FetchWorkflows.enqueue(queueClient, job)
+      } yield ack
+
+      acknowledgements.map(ack => log.debug(s"${connector.getProviderName()} sent ${ack}"))
     }
 
-    batches.map { maybeBatch =>
-      maybeBatch.map { batch =>
-          FetchWorkflows.enqueue(queueClient, batch.result.right.get)
-        }
-      }
   }
 
   def stop(): Unit = {

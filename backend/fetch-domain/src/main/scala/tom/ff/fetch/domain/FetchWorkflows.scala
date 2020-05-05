@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
 
 object FetchWorkflows {
 
-  val fetch: Fetch = (connector: Connector, fileTable: FileTable) => {
+  val fetchObjects: Fetch = (connector: Connector, fileTable: FileTable) => {
     def addToFileTable(fileTable: FileTable, provider: String, file: (String, Any)): Unit = {
       val fileName = file match { case (name, _) => name }
 
@@ -63,57 +63,57 @@ object FetchWorkflows {
 
     val fileList: Seq[(String, Any)] = connector.getObjects
 
-    val results = new ArrayBuffer[Result[FetchError, RawTransaction]]
 
-    fileList.foreach(
-      file => {
-        try {
-          if ( ! isInFileTable(fileTable, connector.getProviderName(), file)) {
-            addToFileTable(fileTable, connector.getProviderName(), file)
-            val lines: Seq[String] = parseTransactions(file match { case (_, bytes) => bytes })
+    Result {
+      val rawTransactions = new ArrayBuffer[RawTransaction]
+      val failures = new ArrayBuffer[String]
 
-            lines.foreach {
-               line => {
-                 val txn = parseRawTransaction(line)
-                 results += (Result(Right(txn)))
-               }
+      fileList.foreach(
+        file => {
+          try {
+            if (!isInFileTable(fileTable, connector.getProviderName(), file)) {
+              addToFileTable(fileTable, connector.getProviderName(), file)
+              val lines: Seq[String] = parseTransactions(file match { case (_, bytes) => bytes })
+
+              lines.foreach {
+                line => {
+                  val txn = parseRawTransaction(line)
+                  rawTransactions += txn
+                }
+              }
+            }
+          }
+          catch {
+            case e: RuntimeException => {
+              // dont want to bust the whole of the fetch process
+              // so just print out the duffer.
+              println(s"duff transaction ${file._1}")
+              failures += file._1
             }
           }
         }
-        catch {
-          case e: RuntimeException => {
-            results += Result(Left(new FetchError(e.getLocalizedMessage, file.getClass.toString)))
-          }
-        }
-      }
-    )
+      )
+      println(s"Fetch produced ${rawTransactions.size} transactions and ${failures.size} failures")
 
-    val oks = results.filter(r => r.result.isRight).size
-    val fails = results.filter(r => r.result.isLeft).size
-
-    if (results.size == 0) None else {
-      println(s"Fetch produced ${oks} transactions and ${fails} failures")
-      Some(results.toSeq)
+      rawTransactions.toSeq
     }
   }
 
   val createJob: CreateJob = (connector: Connector, txns: Seq[RawTransaction]) => {
-    val job = Job[RawTransaction](txns.size, txns, JobMetadata("ETL", connector.getProviderName()))
-    println(s"Created ETL job for ${connector.getProviderName()} with ${txns.size} txns")
-    Result(Right(job))
+    Result {
+      val job = Job[RawTransaction](txns.size, txns, JobMetadata("ETL", connector.getProviderName()))
+      println(s"Created ETL job for ${connector.getProviderName()} with ${txns.size} txns")
+      job
+    }
   }
 
   val enqueue: Enqueue = (c: QueueClient, job: Job[RawTransaction]) => {
-    try {
-      if (job.payload.size > 0){
-        c.produce(job.serialize)
-        println(s"Enqueued job with ${job.size} objects")
-        Result(Right("Success"))
+    Result {
+        if (job.payload.size > 0){
+          c.produce(job.serialize)
+          println(s"Enqueued job with ${job.size} objects")
+        }
+        "no op"
       }
-      else Result(Right("No op"))
     }
-    catch {
-      case e: Throwable => Result(Left(new JobError(e.getLocalizedMessage)))
-    }
-  }
 }

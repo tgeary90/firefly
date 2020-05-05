@@ -1,10 +1,8 @@
 package tom.ff.fetch.domain
+
 import scala.collection.mutable.{Map => MMap}
 
-
 object FetchTypes {
-
-  /////// WorkFlows ///////////
 
   class FetchError(msg: String, failedTransaction: FailedTransaction) extends RuntimeException {
     def getFailedTransaction: String = failedTransaction
@@ -12,21 +10,49 @@ object FetchTypes {
 
   class JobError(msg: String) extends RuntimeException
 
-  type FailedTransaction = String
-  type Ack = String
-  type FileTable = MMap[Provider, Set[FileName]]
+  type FailedTransaction  = String
+//  type Ack                = String
+  type FileTable          = MMap[Provider, Set[FileName]]
 
-  // note RawTransactions. ETL workflow to validate.
-  type Fetch = (Connector, FileTable) => Option[Seq[Result[FetchError, RawTransaction]]]
-  type CreateJob = (Connector, Seq[RawTransaction]) => Result[JobError, Job[RawTransaction]]
-  type Enqueue = (QueueClient, Job[RawTransaction]) => Result[JobError, Ack]
+  /////// WorkFlows ///////////
+
+  type Fetch =      (Connector, FileTable)             => Result[Seq[RawTransaction]]
+  type CreateJob =  (Connector, Seq[RawTransaction])   => Result[Job[RawTransaction]]
+  type Enqueue =    (QueueClient, Job[RawTransaction]) => Result[String]
 
   /////// Value Objects ///////
 
   type FileName = String
   type Provider = String
 
-  case class Result[A, B](result: Either[A, B])
+  trait Result[+A] {
+    def map[B](f: A => B): Result[B]
+    def flatMap[B](f: A => Result[B]): Result[B]
+    def withFilter(predicate: A => Boolean): Result[A]
+  }
+
+  object Result {
+    def apply[A](value: => A): Result[A] = {
+      try {
+        SuccessResult(value)
+      }
+      catch {
+        case e: Throwable => FailureResult(new JobError(e.getLocalizedMessage))
+      }
+    }
+  }
+
+  case class SuccessResult[A](value: A) extends Result[A] {
+    override def map[B](f: A => B): Result[B] = Result[B](f(value))
+    override def flatMap[B](f: A => Result[B]): Result[B] = f(value)
+    override def withFilter(predicate: A => Boolean): Result[A] = if (predicate(value)) this else null
+  }
+
+  case class FailureResult(e: Throwable) extends Result[Nothing] {
+    override def map[B](f: Nothing => B): Result[B] = this
+    override def flatMap[B](f: Nothing => Result[B]): Result[B] = this
+    override def withFilter(predicate: Nothing => Boolean): Result[Nothing] = this
+  }
 
   trait Connector {
     def getObjects(): Seq[(String, Any)]
