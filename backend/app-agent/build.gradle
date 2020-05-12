@@ -12,7 +12,6 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
 	baseName = 'app-agent'
-	version = '0.0.1'
 }
 
 test {

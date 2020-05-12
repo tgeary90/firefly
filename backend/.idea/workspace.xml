@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="" />
+    <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-etl/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-etl/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gcp-connector/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/gcp-connector/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/login/login.component.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -389,9 +396,10 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="548" y="244" width="880" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1853.958@67.27.1853.958" timestamp="1587931760921" />
-    <state x="634" y="236" width="719" height="538" key="find.popup" timestamp="1588611154467">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state x="634" y="233" width="719" height="538" key="find.popup" timestamp="1589270386047">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
+    <state x="634" y="233" width="719" height="538" key="find.popup/67.27.1853.943@67.27.1853.943" timestamp="1589270386047" />
     <state x="634" y="236" width="719" height="538" key="find.popup/67.27.1853.958@67.27.1853.958" timestamp="1588611154467" />
     <state x="302" y="231" width="1372" height="547" key="new project wizard" timestamp="1588691572292">
       <screen x="67" y="27" width="1853" height="958" />

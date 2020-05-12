@@ -13,7 +13,6 @@ apply plugin: 'io.spring.dependency-management'
 
 bootJar {
 	baseName = 'app-etl'
-	version = '0.0.1'
 }
 
 dependencies {
