@@ -4,27 +4,24 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 import org.springframework.stereotype.Component
-import tom.ff.fetch.domain.FetchTypes.Bucket
+import tom.ff.fetch.domain.FetchTypes._
 
 import scala.collection.mutable.ArrayBuffer
 
 @Component
-class BucketService {
+class BucketService extends BucketMetadata {
 
   private val buckets       = new ArrayBuffer[Bucket]
-  private var bucketCounter = 0
   private val dateFormat    = new SimpleDateFormat("dd-MM-yyyy, hh:mm:ss")
 
-  def getBuckets: Seq[Bucket] = buckets.toList
+  def getBucketsFor(provider: String): Seq[Bucket] = buckets.filter(b => b.provider == provider)
 
-  def deleteBucket(id: Int): Unit = {
-    val b  = new Bucket(id, "", 0, null)
-    if (buckets.contains(b)) buckets -= b
-  }
+  def updateBucketETLMetadata(bucketName: String, count: Int, provider: Provider): Unit = {
+    val bucketsThatMatch = buckets.filter(b => b.name == bucketName)
 
-  def addBucket(bucketUrl: String, count: Int): Unit = {
-    val b = new Bucket(bucketCounter, bucketUrl, count, new java.sql.Date(System.currentTimeMillis()))
-    if ( ! buckets.contains(b)) buckets += (b)
-    bucketCounter += 1
+    if (bucketsThatMatch.size > 0) {
+      buckets.remove(buckets.indexWhere(b => b.name == bucketName))
+    }
+    buckets.append(Bucket(bucketName, count, new Date(System.currentTimeMillis()), provider))
   }
 }

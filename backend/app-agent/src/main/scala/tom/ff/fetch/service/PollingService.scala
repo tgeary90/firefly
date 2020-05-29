@@ -13,8 +13,8 @@ import tom.ff.fetch.domain.FetchWorkflows
 @Component
 class PollingService(
                       registrationService: RegistrationService,
-                      bucketService: BucketService,
                       queueClient: QueueClient,
+                      bucketService: BucketService,
                       @Value("${polling.interval}") pollingInterval: String,
                       fileTable: FileTable
                     ) {
@@ -47,7 +47,7 @@ class PollingService(
 
     for (connector <- connectors) {
       val acknowledgements = for {
-        responsesForThatCloud <- FetchWorkflows.fetchObjects(connector, fileTable)
+        responsesForThatCloud <- FetchWorkflows.fetchObjects(connector, fileTable, bucketService)
         job                   <- FetchWorkflows.createJob(connector, responsesForThatCloud)
         ack                   <- FetchWorkflows.enqueue(queueClient, job)
       } yield ack

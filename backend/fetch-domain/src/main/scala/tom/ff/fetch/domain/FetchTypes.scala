@@ -11,14 +11,20 @@ object FetchTypes {
   class JobError(msg: String) extends RuntimeException
 
   type FailedTransaction  = String
-//  type Ack                = String
   type FileTable          = MMap[Provider, Set[FileName]]
+
+  /////// Service /////////////
+
+  trait BucketMetadata {
+    def getBucketsFor(provider: String): Seq[Bucket]
+    def updateBucketETLMetadata(bucketName: String, count: Int, provider: Provider): Unit
+  }
 
   /////// WorkFlows ///////////
 
-  type Fetch =      (Connector, FileTable)             => Result[Seq[RawTransaction]]
-  type CreateJob =  (Connector, Seq[RawTransaction])   => Result[Job[RawTransaction]]
-  type Enqueue =    (QueueClient, Job[RawTransaction]) => Result[String]
+  type Fetch =      (Connector, FileTable, BucketMetadata)  => Result[Seq[RawTransaction]]
+  type CreateJob =  (Connector, Seq[RawTransaction])        => Result[Job[RawTransaction]]
+  type Enqueue =    (QueueClient, Job[RawTransaction])      => Result[String]
 
   /////// Value Objects ///////
 
@@ -55,8 +61,10 @@ object FetchTypes {
   }
 
   trait Connector {
-    def getObjects(): Seq[(String, Any)]
+    def getBucketContents(bucketName: String): Seq[(String, Any)]
     def getProviderName(): String
+    def getBucketCount(bucketName: String): Int
+    def listBuckets(): Seq[String]
   }
 
   trait QueueClient {
@@ -92,20 +100,12 @@ object FetchTypes {
 
   //////// Entities ///////////
 
-  class Bucket(val id: Int, val url: String, numObjects: Long, lastETLDate: java.sql.Date) {
-    def canEqual(that: Any): Boolean = that.isInstanceOf[Bucket]
-
-    override def equals(that: Any): Boolean = {
-      that match {
-        case b: Bucket => {
-          (this eq b) || (b.canEqual(this)) && (hashCode == b.hashCode()) && (id == b.id)
-        }
-        case _ => false
-      }
-    }
-
-    override def hashCode(): Int = 31 * ( id.## ) + id.##
-  }
+  case class Bucket(
+                     name: String,
+                     numObjects: Long,
+                     lastETLDate: java.sql.Date,
+                     provider: String
+                   )
 
   abstract class Originator {
     def accNo: AccountNumber

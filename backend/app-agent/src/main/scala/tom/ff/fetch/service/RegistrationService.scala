@@ -10,6 +10,6 @@ class RegistrationService() {
   private val connectors = new ArrayBuffer[Connector]()
 
   def getConnectors: List[Connector] = connectors.toList
-
+  def getConnector(providerName: String): Connector = connectors.filter(c => c.getProviderName() == providerName)(0)
   def addConnector(cloudAgent: Connector): Unit = connectors += cloudAgent
 }

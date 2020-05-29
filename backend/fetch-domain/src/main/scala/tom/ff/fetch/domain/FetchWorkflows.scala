@@ -9,7 +9,10 @@ import scala.collection.mutable.ArrayBuffer
 
 object FetchWorkflows {
 
-  val fetchObjects: Fetch = (connector: Connector, fileTable: FileTable) => {
+  val fetchObjects: Fetch = (connector: Connector, fileTable: FileTable, bucketMetadata: BucketMetadata) => {
+
+    //////// helper functions to fetch workflow //////////////
+
     def addToFileTable(fileTable: FileTable, provider: String, file: (String, Any)): Unit = {
       val fileName = file match { case (name, _) => name }
 
@@ -61,12 +64,35 @@ object FetchWorkflows {
       )
     }
 
-    val fileList: Seq[(String, Any)] = connector.getObjects
+    def addTxnsToList(rawTransactions: ArrayBuffer[RawTransaction], lines: Seq[String]) = {
+      lines.foreach {
+        line => {
+          val txn = parseRawTransaction(line)
+          rawTransactions += txn
+        }
+      }
+    }
 
+    //////////////////////////////////////////////////////////
+
+    val buckets = connector.listBuckets()
+
+    for {
+      bucket  <- buckets
+    } yield {
+      bucketMetadata.updateBucketETLMetadata(
+        bucket, connector.getBucketCount(bucket), connector.getProviderName()
+      )
+    }
+
+    val fileList: Seq[(String, Any)] = for {
+      bucket  <- buckets
+      files   <- connector.getBucketContents(bucket)
+    } yield files
 
     Result {
       val rawTransactions = new ArrayBuffer[RawTransaction]
-      val failures = new ArrayBuffer[String]
+      val failures        = new ArrayBuffer[String]
 
       fileList.foreach(
         file => {
@@ -74,13 +100,7 @@ object FetchWorkflows {
             if (!isInFileTable(fileTable, connector.getProviderName(), file)) {
               addToFileTable(fileTable, connector.getProviderName(), file)
               val lines: Seq[String] = parseTransactions(file match { case (_, bytes) => bytes })
-
-              lines.foreach {
-                line => {
-                  val txn = parseRawTransaction(line)
-                  rawTransactions += txn
-                }
-              }
+              addTxnsToList(rawTransactions, lines)
             }
           }
           catch {
@@ -94,7 +114,6 @@ object FetchWorkflows {
         }
       )
       println(s"Fetch produced ${rawTransactions.size} transactions and ${failures.size} failures")
-
       rawTransactions.toSeq
     }
   }

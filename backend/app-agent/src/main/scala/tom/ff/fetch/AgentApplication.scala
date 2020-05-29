@@ -26,8 +26,10 @@ class AgentApp() {
   @Bean
   def gcpAgent(gcpAgent: GCPConnector, registrationService: RegistrationService): Connector = {
     val connector = new Connector {
-      override def getObjects(): Seq[(String, Any)] = gcpAgent.getObjects()
+      override def getBucketContents(bucketName: String): Seq[(String, Any)] = gcpAgent.getBucketContents(bucketName)
       override def getProviderName(): String = "gcp"
+      override def getBucketCount(bucketName: String): Int = gcpAgent.getBucketCount(bucketName)
+      override def listBuckets(): Seq[String] = gcpAgent.listBuckets()
     }
     registrationService.addConnector(connector)
     connector
