@@ -14,7 +14,7 @@ import tom.ff.etl.io.RabbitMQClient
     "tom.ff.etl"
   )
 )
-class AppConfig() {
+class ETLApp() {
 
   @Bean(initMethod = "consume")
   def queueClient(
@@ -26,6 +26,8 @@ class AppConfig() {
   }
 }
 
-object ETLApplication extends App {
-    SpringApplication.run(classOf[AppConfig])
+object ETLApplication {
+  def main(args: Array[String]) {
+    SpringApplication.run(classOf[ETLApp])
+  }
 }
