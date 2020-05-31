@@ -1,11 +1,16 @@
 package tom.ff.fetch.io
 
+import java.io.StringWriter
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.{DeleteMapping, GetMapping, PostMapping, RequestParam, RestController}
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.{DeleteMapping, GetMapping, PostMapping, RequestParam, ResponseBody, RestController}
 import tom.ff.fetch.domain.FetchTypes.Bucket
 import tom.ff.fetch.service.{BucketService, PollingService}
 
-@RestController("/buckets")
+@RestController
 class FetchAPI {
 
   @Autowired
@@ -19,9 +24,18 @@ class FetchAPI {
     pollingService.start
   }
 
-  // TODO query param eg. ?provider=gcp
-  @GetMapping
-  def getBuckets(@RequestParam provider: String): Seq[Bucket] = {
-    bucketService.getBucketsFor(provider)
+  @GetMapping(path = Array("/buckets"), produces = Array("application/json"))
+  def getBuckets(@RequestParam provider: String): ResponseEntity[String] = {
+    val buckets = bucketService.getBucketsFor(provider)
+
+    val mapper = new ObjectMapper()
+    mapper.registerModule(DefaultScalaModule)
+    val out = new StringWriter()
+
+    buckets.map {
+      b => mapper.writeValue(out, b).toString
+    }
+
+    ResponseEntity.ok(out.toString)
   }
 }

@@ -113,7 +113,9 @@ object FetchWorkflows {
           }
         }
       )
-      println(s"Fetch produced ${rawTransactions.size} transactions and ${failures.size} failures")
+      if (rawTransactions.size > 0 || failures.size > 0) {
+        println(s"Fetch produced ${rawTransactions.size} transactions and ${failures.size} failures")
+      }
       rawTransactions.toSeq
     }
   }
@@ -121,7 +123,7 @@ object FetchWorkflows {
   val createJob: CreateJob = (connector: Connector, txns: Seq[RawTransaction]) => {
     Result {
       val job = Job[RawTransaction](txns.size, txns, JobMetadata("ETL", connector.getProviderName()))
-      println(s"Created ETL job for ${connector.getProviderName()} with ${txns.size} txns")
+      if (txns.size > 0) println(s"Created ETL job for ${connector.getProviderName()} with ${txns.size} txns")
       job
     }
   }
