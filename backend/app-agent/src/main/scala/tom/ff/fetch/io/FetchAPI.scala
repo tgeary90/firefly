@@ -30,12 +30,8 @@ class FetchAPI {
 
     val mapper = new ObjectMapper()
     mapper.registerModule(DefaultScalaModule)
-    val out = new StringWriter()
 
-    buckets.map {
-      b => mapper.writeValue(out, b).toString
-    }
-
-    ResponseEntity.ok(out.toString)
+    val bucketsJson = mapper.writeValueAsString(buckets)
+    ResponseEntity.ok(bucketsJson)
   }
 }
