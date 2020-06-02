@@ -4,19 +4,23 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Cloud Provider</th>
-        <th>Bucket URL</th>
+        <th>Name</th>
+        <th>size</th>
         <th>Last ETL run date</th>
+        <th>Cloud Provider</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let datasource of datasources">
-        <td>{{ datasource.id }}</td>
-        <td>{{ datasource.cloudProvider }}</td>
-        <td>{{ datasource.bucketUrl }}</td>
-        <td>{{ datasource.lastEtl | date | uppercase }}</td>
+      <tr *ngFor="let bucket of buckets">
+        <td>{{ bucket.name }}</td>
+        <td>{{ bucket.numObjects }}</td>
+        <td>{{ bucket.lastETLDate | date:'yyy-MM-dd HH:mm:ss Z' | uppercase }}</td>
+        <td>{{ bucket.provider }}</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="container">
+  <button (click)="refreshBuckets()" class="btn btn-success">Refresh Buckets</button>
 </div>

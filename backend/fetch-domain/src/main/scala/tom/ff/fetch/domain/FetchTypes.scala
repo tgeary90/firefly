@@ -1,5 +1,7 @@
 package tom.ff.fetch.domain
 
+import java.util.Date
+
 import scala.collection.mutable.{Map => MMap}
 
 object FetchTypes {
@@ -103,7 +105,7 @@ object FetchTypes {
   case class Bucket(
                      name: String,
                      numObjects: Long,
-                     lastETLDate: java.sql.Date,
+                     lastETLDate: Date,
                      provider: String
                    )
 

@@ -4,6 +4,10 @@
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchTypes.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchTypes.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/app.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,10 +288,10 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="167" y="125" width="1653" height="760" key="DiffContextDialog/67.27.1853.958@67.27.1853.958" timestamp="1587972518145" />
-    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1588691562999">
+    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl" timestamp="1591081801013">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
-    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1588691562999" />
+    <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1591081801013" />
     <state width="1807" height="295" key="GridCell.Tab.0.bottom" timestamp="1590996988625">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -361,11 +365,6 @@
           <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
           <line>24</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala</url>
-          <line>34</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

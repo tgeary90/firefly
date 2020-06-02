@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { BucketsService } from '../service/data/buckets.service';
 
-export class DataSource {
+export class Bucket {
   constructor(
-    public id: number,
-    public cloudProvider: string,
-    public bucketUrl: string,
-    public lastEtl: Date)
+  public name: String,
+  public numObjects: number,
+  public lastETLDate: Date,
+  public provider: string)
   {}
 }
 
@@ -16,14 +17,25 @@ export class DataSource {
 })
 export class AdddatasourceComponent implements OnInit {
 
-  datasources = [
-    new DataSource(1, 'GCP', 'abc', new Date()),
-    new DataSource(2, 'AWS', 'def', new Date())
-  ]
+  buckets = []
 
-  constructor() { }
+  constructor(private bucketService: BucketsService) { 
+    
+  }
 
   ngOnInit() {
   }
 
+  refreshBuckets() {
+    // TODO removed hardcoded 'gcp' and add provider checkbox or similar
+    this.bucketService.executeRefreshBuckets("gcp").subscribe(
+      response => this.handleSuccessfulResponse(response)
+    );
+    console.log("last line of refresh buckets")
+  }
+
+  handleSuccessfulResponse(response) {
+    console.log(response);
+    this.buckets = response
+  }
 }
