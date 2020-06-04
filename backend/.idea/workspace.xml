@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/FetchAPI.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchTypes.scala" beforeDir="false" afterPath="$PROJECT_DIR$/fetch-domain/src/main/scala/tom/ff/fetch/domain/FetchTypes.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/adddatasource/adddatasource.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/service/data/buckets.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/service/data/buckets.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +70,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Scala Worksheet" />
-        <option value="Scala Class" />
         <option value="Scala Object" />
+        <option value="Scala Class" />
       </list>
     </option>
   </component>
@@ -220,6 +218,9 @@
       </map>
     </option>
   </component>
+  <component name="ScalaProjectSettings">
+    <option name="dontShowConversionDialog" value="true" />
+  </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
       <list>
@@ -255,11 +256,11 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="669" y="310" width="639" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.958@67.27.1853.958" timestamp="1586416925788" />
-    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1590772805398">
+    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1591170706487">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="801" y="201" key="#com.intellij.ide.util.MemberChooser/67.27.1853.935@67.27.1853.935" timestamp="1587822318414" />
-    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser/67.27.1853.958@67.27.1853.958" timestamp="1590772805398" />
+    <state x="801" y="205" width="368" height="599" key="#com.intellij.ide.util.MemberChooser/67.27.1853.958@67.27.1853.958" timestamp="1591170706487" />
     <state x="701" y="174" width="575" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1586246447768">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
