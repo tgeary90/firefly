@@ -1,14 +1,16 @@
 package tom.ff.fetch.service.auth
 
-import java.util.Date
+import java.util.{Date, Map}
 
 import io.jsonwebtoken.{Claims, Jwts, SignatureAlgorithm}
 import io.jsonwebtoken.impl.DefaultClock
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.stereotype.Component
+
 import scala.collection.mutable
 
-
+@Component
 class JwtTokenUtil(
                     @Value("${jwt.signing.key.secret}") secret: String,
                     @Value ("${jwt.token.expiration.in.seconds}") expiration: Long
@@ -71,7 +73,7 @@ class JwtTokenUtil(
   }
 
   def generateToken(userDetails: UserDetails): String = {
-    val claims = mutable.Map[String, Any].asInstanceOf[Claims]
+    val claims: Map[String, AnyRef] = new java.util.HashMap[String, AnyRef]
     val createdDate: Date = clock.now()
     val expirationDate: Date = calculateExpirationDate(createdDate)
 
