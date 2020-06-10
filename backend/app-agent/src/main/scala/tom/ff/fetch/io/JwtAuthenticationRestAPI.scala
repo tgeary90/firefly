@@ -1,7 +1,7 @@
 package tom.ff.fetch.io
 
 import javax.servlet.http.HttpServletRequest
-import org.springframework.web.bind.annotation.{CrossOrigin, ExceptionHandler, RequestBody, RequestMapping, RequestMethod, RestController}
+import org.springframework.web.bind.annotation._
 import org.springframework.beans.factory.annotation.{Autowired, Value}
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.security.authentication.{AuthenticationManager, BadCredentialsException, DisabledException, UsernamePasswordAuthenticationToken}
@@ -12,7 +12,7 @@ import tom.ff.fetch.service.auth.{JwtTokenUtil, JwtUserDetails}
 class AuthenticationException(val message: String, val cause: Throwable) extends RuntimeException(message, cause) {}
 
 @RestController
-@CrossOrigin(origins = Array("http://localhost:4200"))
+@CrossOrigin
 class JwtAuthenticationRestAPI(
                                 @Value("${jwt.http.request.header}") tokenHeader: String,
                                 authenticationManager: AuthenticationManager,
@@ -20,7 +20,7 @@ class JwtAuthenticationRestAPI(
                                 jwtInMemoryUserDetailsService: UserDetailsService
                               ) {
 
-  @RequestMapping(value = Array("$(jwt.get.token.uri)"), method = Array(RequestMethod.POST))
+  @RequestMapping(value = Array("${jwt.get.token.uri}"), method = Array(RequestMethod.POST))
   def createAuthenticationToken(@RequestBody authenticationRequest: JwtTokenRequest): ResponseEntity[Any] = {
     authenticate(authenticationRequest.getUsername, authenticationRequest.getPassword)
 
@@ -31,7 +31,7 @@ class JwtAuthenticationRestAPI(
     ResponseEntity.ok(new JwtTokenResponse(token))
   }
 
-  @RequestMapping(value = Array("${jwt.refresh.token.uri}"), method = Array(RequestMethod.GET))
+  @GetMapping(value = Array("${jwt.refresh.token.uri}"))
   def refreshAndGetAuthenticationToken(req: HttpServletRequest): ResponseEntity[Any] = {
     val authToken: String = req.getHeader(tokenHeader)
     val token: String = authToken.substring(7) // remove "Bearer: " prefix

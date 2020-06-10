@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service
 @Service
 class JwtInMemoryUserDetailsService extends UserDetailsService {
 
-  // TODO add a hardcoded jwt token for user - tomgeary
   val inMemoryUserList: Seq[JwtUserDetails] = Seq[JwtUserDetails](
-    new JwtUserDetails(1L, "tomgeary", "", Seq[GrantedAuthority](
-      new GrantedAuthority() {
-        override def getAuthority: String = "ROLE_USER_2"
-    }))
+    new JwtUserDetails(
+      1L,
+      "tomgeary",
+      "$2a$10$3zHzb.Npv1hfZbLEU5qsdOju/tk2je6W6PnNnY.c1ujWPcZh4PL6e",
+      Seq[GrantedAuthority](
+        new GrantedAuthority() {
+          override def getAuthority: String = "ROLE_USER_2"
+        }
+      )
+    )
   )
 
   override def loadUserByUsername(username: String): UserDetails = {

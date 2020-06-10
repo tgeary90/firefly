@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cffa6880-0aed-4628-9a8f-70d68bd8c777" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/JwtAuthenticationRestAPI.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/JwtAuthenticationRestAPI.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtInMemoryUserDetailsService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtInMemoryUserDetailsService.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtTokenAuthorizationOncePerRequestFilter.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtTokenAuthorizationOncePerRequestFilter.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtTokenUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtTokenUtil.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtWebSecurityConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtWebSecurityConfig.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/service/data/buckets.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/firefly-ui/src/app/service/data/buckets.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -296,46 +298,54 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="776" y="263" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.958@67.27.1853.958" timestamp="1591081801013" />
-    <state width="1807" height="295" key="GridCell.Tab.0.bottom" timestamp="1590996988625">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="225" key="GridCell.Tab.0.bottom" timestamp="1591808657280">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="231" key="GridCell.Tab.0.bottom/67.27.1853.935@67.27.1853.935" timestamp="1587823958280" />
-    <state width="1807" height="295" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1590996988625" />
-    <state width="1807" height="295" key="GridCell.Tab.0.center" timestamp="1590996988623">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.0.bottom/67.27.1853.935@67.27.1853.935" timestamp="1591793314975" />
+    <state width="1807" height="225" key="GridCell.Tab.0.bottom/67.27.1853.943@67.27.1853.943" timestamp="1591808657280" />
+    <state width="1807" height="295" key="GridCell.Tab.0.bottom/67.27.1853.958@67.27.1853.958" timestamp="1591690503822" />
+    <state width="1807" height="225" key="GridCell.Tab.0.center" timestamp="1591808657275">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="231" key="GridCell.Tab.0.center/67.27.1853.935@67.27.1853.935" timestamp="1587823958279" />
-    <state width="1807" height="295" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1590996988623" />
-    <state width="1807" height="295" key="GridCell.Tab.0.left" timestamp="1590996988622">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.0.center/67.27.1853.935@67.27.1853.935" timestamp="1591793314975" />
+    <state width="1807" height="225" key="GridCell.Tab.0.center/67.27.1853.943@67.27.1853.943" timestamp="1591808657275" />
+    <state width="1807" height="295" key="GridCell.Tab.0.center/67.27.1853.958@67.27.1853.958" timestamp="1591690503821" />
+    <state width="1807" height="225" key="GridCell.Tab.0.left" timestamp="1591808657273">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="231" key="GridCell.Tab.0.left/67.27.1853.935@67.27.1853.935" timestamp="1587823958279" />
-    <state width="1807" height="295" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1590996988622" />
-    <state width="1807" height="295" key="GridCell.Tab.0.right" timestamp="1590996988624">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.0.left/67.27.1853.935@67.27.1853.935" timestamp="1591793314974" />
+    <state width="1807" height="225" key="GridCell.Tab.0.left/67.27.1853.943@67.27.1853.943" timestamp="1591808657273" />
+    <state width="1807" height="295" key="GridCell.Tab.0.left/67.27.1853.958@67.27.1853.958" timestamp="1591690503821" />
+    <state width="1807" height="225" key="GridCell.Tab.0.right" timestamp="1591808657276">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="231" key="GridCell.Tab.0.right/67.27.1853.935@67.27.1853.935" timestamp="1587823958279" />
-    <state width="1807" height="295" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1590996988624" />
-    <state width="1807" height="295" key="GridCell.Tab.1.bottom" timestamp="1590996988628">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.0.right/67.27.1853.935@67.27.1853.935" timestamp="1591793314975" />
+    <state width="1807" height="225" key="GridCell.Tab.0.right/67.27.1853.943@67.27.1853.943" timestamp="1591808657276" />
+    <state width="1807" height="295" key="GridCell.Tab.0.right/67.27.1853.958@67.27.1853.958" timestamp="1591690503821" />
+    <state width="1807" height="301" key="GridCell.Tab.1.bottom" timestamp="1591806115185">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="286" key="GridCell.Tab.1.bottom/67.27.1853.935@67.27.1853.935" timestamp="1587823955737" />
-    <state width="1807" height="295" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1590996988628" />
-    <state width="1807" height="295" key="GridCell.Tab.1.center" timestamp="1590996988626">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.1.bottom/67.27.1853.935@67.27.1853.935" timestamp="1591793314982" />
+    <state width="1807" height="301" key="GridCell.Tab.1.bottom/67.27.1853.943@67.27.1853.943" timestamp="1591806115185" />
+    <state width="1807" height="295" key="GridCell.Tab.1.bottom/67.27.1853.958@67.27.1853.958" timestamp="1591690503823" />
+    <state width="1807" height="301" key="GridCell.Tab.1.center" timestamp="1591806115184">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="286" key="GridCell.Tab.1.center/67.27.1853.935@67.27.1853.935" timestamp="1587823955733" />
-    <state width="1807" height="295" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1590996988626" />
-    <state width="1807" height="295" key="GridCell.Tab.1.left" timestamp="1590996988625">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.1.center/67.27.1853.935@67.27.1853.935" timestamp="1591793314978" />
+    <state width="1807" height="301" key="GridCell.Tab.1.center/67.27.1853.943@67.27.1853.943" timestamp="1591806115184" />
+    <state width="1807" height="295" key="GridCell.Tab.1.center/67.27.1853.958@67.27.1853.958" timestamp="1591690503822" />
+    <state width="1807" height="301" key="GridCell.Tab.1.left" timestamp="1591806115183">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="286" key="GridCell.Tab.1.left/67.27.1853.935@67.27.1853.935" timestamp="1587823955731" />
-    <state width="1807" height="295" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1590996988625" />
-    <state width="1807" height="295" key="GridCell.Tab.1.right" timestamp="1590996988627">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state width="1807" height="298" key="GridCell.Tab.1.left/67.27.1853.935@67.27.1853.935" timestamp="1591793314976" />
+    <state width="1807" height="301" key="GridCell.Tab.1.left/67.27.1853.943@67.27.1853.943" timestamp="1591806115183" />
+    <state width="1807" height="295" key="GridCell.Tab.1.left/67.27.1853.958@67.27.1853.958" timestamp="1591690503822" />
+    <state width="1807" height="301" key="GridCell.Tab.1.right" timestamp="1591806115184">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state width="1807" height="286" key="GridCell.Tab.1.right/67.27.1853.935@67.27.1853.935" timestamp="1587823955735" />
-    <state width="1807" height="295" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1590996988627" />
+    <state width="1807" height="298" key="GridCell.Tab.1.right/67.27.1853.935@67.27.1853.935" timestamp="1591793314982" />
+    <state width="1807" height="301" key="GridCell.Tab.1.right/67.27.1853.943@67.27.1853.943" timestamp="1591806115184" />
+    <state width="1807" height="295" key="GridCell.Tab.1.right/67.27.1853.958@67.27.1853.958" timestamp="1591690503822" />
     <state x="638" y="218" width="701" height="574" key="RollbackChangesDialog" timestamp="1587713034793">
       <screen x="67" y="27" width="1853" height="958" />
     </state>
@@ -344,14 +354,15 @@
       <screen x="67" y="27" width="1853" height="958" />
     </state>
     <state x="476" y="82" width="1024" height="845" key="SettingsEditor/67.27.1853.958@67.27.1853.958" timestamp="1587135677340" />
-    <state x="548" y="244" width="880" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1587931760921">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state x="548" y="241" width="880" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1591805959415">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state x="548" y="244" width="880" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1853.958@67.27.1853.958" timestamp="1587931760921" />
-    <state x="634" y="236" width="719" height="538" key="find.popup" timestamp="1590913125536">
-      <screen x="67" y="27" width="1853" height="958" />
+    <state x="548" y="241" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1853.943@67.27.1853.943" timestamp="1591805959415" />
+    <state x="548" y="244" width="880" height="522" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/67.27.1853.958@67.27.1853.958" timestamp="1591690153198" />
+    <state x="634" y="233" width="719" height="538" key="find.popup" timestamp="1591806226884">
+      <screen x="67" y="27" width="1853" height="943" />
     </state>
-    <state x="634" y="233" width="719" height="538" key="find.popup/67.27.1853.943@67.27.1853.943" timestamp="1589270386047" />
+    <state x="634" y="233" width="719" height="538" key="find.popup/67.27.1853.943@67.27.1853.943" timestamp="1591806226884" />
     <state x="634" y="236" width="719" height="538" key="find.popup/67.27.1853.958@67.27.1853.958" timestamp="1590913125536" />
     <state x="302" y="231" width="1372" height="547" key="new project wizard" timestamp="1588691572292">
       <screen x="67" y="27" width="1853" height="958" />
@@ -365,10 +376,25 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/JwtAuthenticationRestAPI.scala</url>
+          <line>26</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
         <line-breakpoint type="scala-line">
-          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/domain/Workflows.scala</url>
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/service/auth/JwtInMemoryUserDetailsService.scala</url>
+          <line>23</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/JwtAuthenticationRestAPI.scala</url>
+          <line>28</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/app-agent/src/main/scala/tom/ff/fetch/io/JwtAuthenticationRestAPI.scala</url>
           <line>24</line>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

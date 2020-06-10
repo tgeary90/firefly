@@ -1,13 +1,16 @@
 package tom.ff.fetch.service.auth
 
-import java.util.{Date, Map}
+import java.util
+import java.util.{Collections, Date, Map}
 
 import io.jsonwebtoken.{Claims, Jwts, SignatureAlgorithm}
 import io.jsonwebtoken.impl.DefaultClock
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 
+import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 @Component
@@ -73,7 +76,11 @@ class JwtTokenUtil(
   }
 
   def generateToken(userDetails: UserDetails): String = {
-    val claims: Map[String, AnyRef] = new java.util.HashMap[String, AnyRef]
+    val claims: java.util.Map[String, AnyRef] = new util.HashMap[String, AnyRef]()
+    val authorities: java.util.Collection[_ <: GrantedAuthority] = userDetails.getAuthorities
+    val authority: GrantedAuthority = authorities.iterator().next()
+    claims.put("role", authority.getAuthority) // you only have one role in this app.
+
     val createdDate: Date = clock.now()
     val expirationDate: Date = calculateExpirationDate(createdDate)
 

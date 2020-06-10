@@ -2,6 +2,7 @@ package tom.ff.fetch.service.auth
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.{Bean, Configuration}
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -41,11 +42,10 @@ class JwtWebSecurityConfig(
   override def configure(http: HttpSecurity): Unit = {
     http
       .csrf().disable()
+      .authorizeRequests().antMatchers("/authenticate").permitAll()
+      .anyRequest().authenticated().and()
       .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-      .authorizeRequests()
-      .anyRequest()
-      .authenticated()
+      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
     http
       .addFilterBefore(jwtAuthenticationTokenFilter, classOf[UsernamePasswordAuthenticationFilter])

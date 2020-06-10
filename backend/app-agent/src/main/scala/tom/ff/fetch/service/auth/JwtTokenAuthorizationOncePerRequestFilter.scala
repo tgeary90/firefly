@@ -23,23 +23,27 @@ class JwtTokenAuthorizationOncePerRequestFilter(
     logger.debug(s"Authentication request for '${request.getRequestURI}'")
 
     val requestTokenHeader = request.getHeader(tokenHeader)
-    val jwtToken = requestTokenHeader.substring(7) // remove "Bearer: " prefix
 
-    val username: String = if ( ! StringUtils.isEmpty(requestTokenHeader) && requestTokenHeader.startsWith("Bearer ")) {
-      try {
+    val (username: String, jwtToken: String) = if ( ! StringUtils.isEmpty(requestTokenHeader) && requestTokenHeader.startsWith("Bearer ")) {
+
+      // make sure this line is in the conditional as all URLs will hit this. NPE if not!
+      val jwtToken = requestTokenHeader.substring(7) // remove "Bearer: " prefix
+      val username: String = try {
         jwtTokenUtil.getUsernameFromToken(jwtToken)
       } catch {
         case iae: IllegalArgumentException => logger.error(iae.getLocalizedMessage); ""
         case eje: ExpiredJwtException => logger.error(eje.getLocalizedMessage); ""
       }
+      (username, jwtToken)
     }
     else {
-      logger.warn("The JWT token either doesnt exist or is corrupt."); ""
+      logger.warn("The JWT token either doesnt exist or is corrupt."); ("", "")
     }
 
     logger.debug(s"processing JWT for ${username}")
 
     createSessionForUser(request, jwtToken, username)
+    filterChain.doFilter(request, response)
   }
 
   private def createSessionForUser(request: HttpServletRequest, jwtToken: String, username: String) = {
