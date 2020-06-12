@@ -43,7 +43,7 @@ class JwtWebSecurityConfig(
     http
       .csrf().disable()
       .authorizeRequests().antMatchers("/index.html", "/authenticate", "/", "/refresh",
-      "/**/*.css","/**/*.js", "/**/*.png", "/**/*.jpg", "/**/favicon.ico").permitAll()
+      "/**/*.css","/**/*.js", "/**/*.png", "/**/*.jpg", "/**/favicon.ico", "/**/*.html").permitAll()
       .anyRequest().authenticated().and()
       .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
