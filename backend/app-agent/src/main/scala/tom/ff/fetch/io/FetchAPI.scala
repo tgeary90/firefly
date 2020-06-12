@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation._
 import tom.ff.fetch.service.{BucketService, PollingService}
 
 @RestController
-@CrossOrigin(origins=Array("http://localhost:4200"))
+//@CrossOrigin(origins=Array("http://localhost:4200"))
+@CrossOrigin
 class FetchAPI {
 
   @Autowired

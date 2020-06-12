@@ -42,7 +42,8 @@ class JwtWebSecurityConfig(
   override def configure(http: HttpSecurity): Unit = {
     http
       .csrf().disable()
-      .authorizeRequests().antMatchers("/authenticate").permitAll()
+      .authorizeRequests().antMatchers("/index.html", "/authenticate", "/", "/refresh",
+      "/**/*.css","/**/*.js", "/**/*.png", "/**/*.jpg", "/**/favicon.ico").permitAll()
       .anyRequest().authenticated().and()
       .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
