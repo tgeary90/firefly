@@ -51,17 +51,12 @@ run etl:
 
 
 ## Run
-./gradlew bootRun
+* On Linux (tested on Ubuntu 14.01)
 
-## Test
-./gradlew check
-
-## Integration Test
-./gradlew integrationTest
-
+```
+cd backend
+docker-compose -f docker-compose-infrastructure.yml up &
+./start_firefly.sh
+```
 ## Develop
 git clone https://github.com/tgeary90/firefly.git
-
-## Lessons learned
-
-1. dont try and run unit tests from a spring boot project in scala. nightmare.
