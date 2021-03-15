@@ -1,0 +1,22 @@
+version: '2.4'
+services:
+  rmq:
+    hostname: rmq
+    container_name: rmq
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  elastic:
+    hostname: ff_es
+    container_name: ff_es
+    image: elasticsearch:6.4.3
+    ports:
+     - "9200:9200"
+     - "9300:9300"
+    volumes:
+     - /home/tomg/firefly/es/data:/usr/share/elasticsearch/data
+    environment:
+     - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+
+

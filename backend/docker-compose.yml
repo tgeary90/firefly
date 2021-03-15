@@ -1,0 +1,51 @@
+version: '2.4'
+services:
+  rmq:
+    hostname: rmq
+    container_name: rmq
+    image: rabbitmq:3-management
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5672"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    ports:
+      - "15672:15672"
+  elastic:
+    hostname: ff_es
+    container_name: ff_es
+    image: elasticsearch:6.4.3
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+     - /home/tomg/firefly/es/data:/usr/share/elasticsearch/data
+    environment:
+     - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+  app-etl:
+    container_name: app-etl
+    hostname: app-etl
+    image: app-etl:latest
+    depends_on:
+      rmq:
+        condition: service_healthy
+      elastic:
+        condition: service_healthy
+    links:
+      - rmq
+      - elastic 
+    ports:
+     - "9001:9001"
+  app-agent:
+    container_name: app-agent
+    hostname: app-agent
+    image: app-agent:latest
+    depends_on:
+      rmq:
+        condition: service_healthy
+    links:
+      - rmq
+
+

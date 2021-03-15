@@ -2,6 +2,9 @@
 
 exec 2>/dev/null
 
+./stop_rmq.sh
+./stop_elastic.sh
+
 pidETL=`jps|grep ETLApplication|cut -d' ' -f1`
 kill $pidETL
 
