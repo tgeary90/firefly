@@ -15,26 +15,26 @@ it to a local (or cloud) elastic instance. It is a demo app to demonstrate how t
 ## Architecture
 
 components:
-![components](./documentation/architecture.png "architecture")
+![components](./backend/documentation/architecture.png "architecture")
 
 ## Design
 
 domain:
-![domain](./documentation/domain.png "domain")
+![domain](./backend/documentation/domain.png "domain")
 
 bounded contexts:
-![bounded_contexts](./documentation/bounded_contexts.png "bounded contexts")
+![bounded_contexts](./backend/documentation/bounded_contexts.png "bounded contexts")
 
 modules:
-![modules](./documentation/packaging.png "modules")
+![modules](./backend/documentation/packaging.png "modules")
 
 ### Workflows:
 
 fetch transactions:
-![flows](./documentation/fetch_txns.png "fetch-txns")
+![flows](./backend/documentation/fetch_txns.png "fetch-txns")
 
 run etl:
-![flows2](./documentation/run_etl.png "run-etl")
+![flows2](./backend/documentation/run_etl.png "run-etl")
 
 ## Implementation Notes
 * layers are io, service and domain
