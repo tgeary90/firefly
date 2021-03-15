@@ -60,7 +60,7 @@ run etl:
 ./gradlew integrationTest
 
 ## Develop
-git clone https://tgeary90@bitbucket.org/tgeary90/firefly.git
+git clone https://github.com/tgeary90/firefly.git
 
 ## Lessons learned
 
