@@ -1,0 +1,21 @@
+{
+  "name": "firefly-test-pack",
+  "version": "1.0.0",
+  "description": "Node-based e2e tests against firefly cloud ETL app",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^3.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "tgeary90",
+  "license": "ISC"
+}
+

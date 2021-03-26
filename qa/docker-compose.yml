@@ -1,0 +1,7 @@
+version: '2.4'
+services:
+  e2e-test:
+    build: src/main/docker
+    #command: "-c 'cd /tests; ./e2e.sh'"
+    command: "-c 'curl app-agent:9001/buckets'"
+
