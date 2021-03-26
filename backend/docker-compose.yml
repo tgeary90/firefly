@@ -40,8 +40,8 @@ services:
     environment:
       - RMQ=rmq
       - ELASTIC=ff_es
-    ports:
-      - "9001:9001"
+        #ports:
+        #- "9001:9001"
        #command: /bin/sh -c "ping -c4 rmq"  
        #command: /bin/sh -c "curl -f localhost:15672"
   app-agent:
@@ -49,6 +49,8 @@ services:
     hostname: app-agent
     #image: app-agent:latest
     build: app-agent/src/main/docker
+    ports:
+      - "9001:9001"
     depends_on:
       rmq:
         condition: service_healthy
