@@ -1,6 +1,7 @@
 FROM java:openjdk-8-jre-alpine
 MAINTAINER tgeary90
 
+RUN mkdir /acct_files
 COPY ./app-agent-*.jar /
 COPY *.sh /
 

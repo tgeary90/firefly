@@ -19,10 +19,11 @@ class ETLApp() {
   @Bean(initMethod = "consume")
   def queueClient(
                    @Value("${queue.name}") queueName: String,
-                   @Value("${rmq.broker}") rmqBroker: String
+                   @Value("${rmq.broker}") rmqBroker: String,
+                   @Value("${elastic.host}") elasticHost: String
                  ): QueueClient = {
 
-    new RabbitMQClient(queueName, rmqBroker)
+    new RabbitMQClient(queueName, rmqBroker, elasticHost)
   }
 }
 

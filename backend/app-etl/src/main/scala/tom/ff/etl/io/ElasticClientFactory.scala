@@ -8,7 +8,7 @@ import com.sksamuel.elastic4s.http.ElasticDsl._
 
 object ElasticClientFactory extends LoadClientFactory {
 
-  val client = ElasticClient(ElasticProperties("http://localhost:9200"))
+  def client(host: String) = ElasticClient(ElasticProperties(s"http://${host}:9200"))
 
   def loadWithClient(client: ElasticClient)
                     (metadata: JobMetadata, txns: Seq[ValidatedTransaction]): Result[Seq[LoadResponse]] = {
@@ -42,5 +42,5 @@ object ElasticClientFactory extends LoadClientFactory {
     Result(responses)
   }
 
-  override def getLoaderFlow(): Load = loadWithClient(client) _
+  override def getLoaderFlow(host: String): Load = loadWithClient(client(host)) _
 }

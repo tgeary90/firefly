@@ -17,7 +17,7 @@ object ETLTypes {
   /////////// Clients ////////////
 
   trait LoadClientFactory {
-    def getLoaderFlow(): Load
+    def getLoaderFlow(host: String): Load
   }
 
   trait QueueClient {

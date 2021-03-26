@@ -5,11 +5,6 @@ import tom.ff.etl.domain.BinarySerializers._
 
 object ETLWorkflows {
 
-/*
-  type Dequeue = Array[Byte] => Result[(Seq[RawTransaction], JobMetadata)]
-  type Validate = Seq[RawTransaction] => Result[Seq[ValidatedTransaction]]
- */
-
   val dequeue: Dequeue = (bytes: Array[Byte]) => {
     val dequeueJob = (bytes: Array[Byte]) => {
       val job = bytes.deserialize[Job[RawTransaction]]

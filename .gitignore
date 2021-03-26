@@ -4,5 +4,5 @@ target
 out
 node_modules
 .gradle
-**/*.idea
+**/.idea
 **/*.jar

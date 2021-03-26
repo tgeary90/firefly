@@ -5,7 +5,7 @@ services:
     container_name: rmq
     image: rabbitmq:3-management
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5672"]
+      test: rabbitmqctl list_queues 
       interval: 30s
       timeout: 30s
       retries: 3
@@ -21,13 +21,14 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-     - /home/tomg/firefly/es/data:/usr/share/elasticsearch/data
+      - /home/tomg/firefly/es/data:/usr/share/elasticsearch/data
     environment:
-     - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
   app-etl:
     container_name: app-etl
     hostname: app-etl
-    image: app-etl:latest
+    #image: app-etl:latest
+    build: app-etl/src/main/docker
     depends_on:
       rmq:
         condition: service_healthy
@@ -35,17 +36,29 @@ services:
         condition: service_healthy
     links:
       - rmq
-      - elastic 
+      - elastic
+    environment:
+      - RMQ=rmq
+      - ELASTIC=ff_es
     ports:
-     - "9001:9001"
+      - "9001:9001"
+       #command: /bin/sh -c "ping -c4 rmq"  
+       #command: /bin/sh -c "curl -f localhost:15672"
   app-agent:
     container_name: app-agent
     hostname: app-agent
-    image: app-agent:latest
+    #image: app-agent:latest
+    build: app-agent/src/main/docker
     depends_on:
       rmq:
         condition: service_healthy
     links:
       - rmq
+#    command: "-c 'ping rmq'"
+    volumes:
+      - ${GCP_ACCT_FILE_DIR}:/acct_files
+    environment:
+      - RMQ=rmq
+      - GCP_ACCT_FILE=${GCP_ACCT_FILE}
 
 

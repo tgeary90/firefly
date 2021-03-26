@@ -7,7 +7,8 @@ import tom.ff.etl.domain.ETLWorkflows
 
 class RabbitMQClient(
                       queueName: String,
-                      rmqBroker: String
+                      rmqBroker: String,
+                      elasticHost: String
                     ) extends QueueClient {
 
   val factory: ConnectionFactory = new ConnectionFactory
@@ -37,7 +38,7 @@ class RabbitMQClient(
           val responseList = for {
             (txns, ctx)           <- ETLWorkflows.dequeue(message.getBody)
             validatedTransactions <- ETLWorkflows.validate(txns)
-            responses             <- ElasticClientFactory.getLoaderFlow()(ctx, validatedTransactions)
+            responses             <- ElasticClientFactory.getLoaderFlow(elasticHost)(ctx, validatedTransactions)
           } yield responses
 
           // TODO do something with the responses - log ?

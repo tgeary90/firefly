@@ -51,12 +51,11 @@ run etl:
 
 
 ## Run
-* On Linux (tested on Ubuntu 14.01)
+* On Linux (tested on Ubuntu 18.04.5 LTS)
 
 ```
 cd backend
-docker-compose -f docker-compose-infrastructure.yml up &
-./start_firefly.sh
+docker-compose up --build
 ```
 ## Develop
 git clone https://github.com/tgeary90/firefly.git
