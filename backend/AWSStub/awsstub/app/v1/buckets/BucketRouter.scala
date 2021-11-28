@@ -10,15 +10,15 @@ class BucketRouter @Inject()(controller: BucketController) extends SimpleRouter 
 
   val prefix = "/v1/buckets"
 
-  def link(id: BucketId): String = {
+  def link(id: Int): String = {
     import io.lemonlabs.uri.dsl._
-    val url = prefix / id
+    val url = prefix / id.toString
     url
   }
 
   override def routes: Routes = {
+    case GET(p"/") => controller.list
     case GET(p"/count") => controller.bucketCount
     case GET(p"/$id") => controller.bucketContents(id)
-    case GET(p"/") => controller.list
   }
 }

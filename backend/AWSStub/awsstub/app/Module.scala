@@ -1,5 +1,7 @@
 import com.google.inject.AbstractModule
+import net.codingwell.scalaguice.ScalaModule
 import play.api.{Configuration, Environment}
+import v1.buckets._
 
 import javax.inject._
 
@@ -13,6 +15,6 @@ class Module(environment: Environment, configuration: Configuration)
     with ScalaModule {
 
   override def configure() = {
-    bind[BucketRepository].to[BucketRepositoryImpl].in[Singleton]()
+    bind[BucketRepository].to[HardcodedBucketRepository].in[Singleton]()
   }
 }

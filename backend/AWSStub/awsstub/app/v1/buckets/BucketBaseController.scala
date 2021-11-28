@@ -1,5 +1,6 @@
 package v1.buckets
 
+import net.logstash.logback.marker.LogstashMarker
 import play.api.MarkerContext
 import play.api.http.FileMimeTypes
 import play.api.i18n.{Langs, MessagesApi}
@@ -39,13 +40,15 @@ case class BucketControllerComponents @Inject()(
                                                langs: Langs,
                                                fileMimeTypes: FileMimeTypes,
                                                executionContext: scala.concurrent.ExecutionContext
-                                               ) extends ControllerComponents
+                                               ) extends ControllerComponents {
+  override def messagesApi: MessagesApi = ???
+}
 
 class BucketBaseController @Inject()(bcc: BucketControllerComponents) extends BaseController with RequestMarkerContext {
 
   override protected def controllerComponents: ControllerComponents = bcc
 
-  def PostAction: BucketActionBuilder = bcc.bucketActionBuilder
+  def BucketAction: BucketActionBuilder = bcc.bucketActionBuilder
 
   def bucketResourceHandler: BucketResourceHandler = bcc.bucketResourceHandler
 

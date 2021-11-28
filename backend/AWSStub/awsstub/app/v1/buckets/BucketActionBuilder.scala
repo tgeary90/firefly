@@ -34,7 +34,7 @@ class BucketActionBuilder @Inject()(
 
   type BucketRequestBlock[A] = BucketRequest[A] => Future[Result]
 
-  override def invokeBlock[A](request: Request[A], block: BucketRequest[A] => Future[Result]): Future[Result] = {
+  override def invokeBlock[A](request: Request[A], block: BucketRequestBlock[A]): Future[Result] = {
 
     implicit val markerContext: MarkerContext = requestHeaderToMarkerContext(request)
     val fut = block(new BucketRequest(request, messagesApi))

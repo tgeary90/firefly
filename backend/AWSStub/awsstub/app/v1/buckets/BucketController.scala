@@ -10,20 +10,25 @@ class BucketController @Inject()(cc: BucketControllerComponents)(implicit ec: Ex
 
   private val logger = Logger(getClass)
 
-  // custom action builder
+  // custom action builders
+
   def list: Action[AnyContent] = BucketAction.async { implicit request =>
-    logger.trace("index: ")
-    bucketHandler.find.map { buckets =>
+    logger.info("index: ")
+    bucketResourceHandler.find.map { buckets =>
       Ok(Json.toJson(buckets))
     }
   }
 
   def bucketContents(id: String): Action[AnyContent] = BucketAction.async { implicit request =>
-    logger.trace(s"contents for $id")
-    bucketHandler.lookup.map { bucket => Ok(Json.toJson(bucket)) // returns a BucketResource and serializes as status 200 Result
+    logger.info(s"contents for $id")
+    bucketResourceHandler.lookup(id).map { bucket =>
+      Ok(Json.toJson(bucket)) // returns a BucketResource and serializes as status 200 Result
     }
   }
 
-  def bucketCount: Handler = ???
-
+  def bucketCount: Action[AnyContent] = BucketAction.async { implicit request =>
+    logger.info("Count is ...")
+    bucketResourceHandler.find.map { buckets =>
+      Ok(Json.toJson(buckets.get.size))}
+  }
 }
